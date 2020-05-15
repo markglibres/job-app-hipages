@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
 import Leads from './leads';
-import { getInvitedLeadsRequested } from '../../redux/invitedleads/actions';
+import { 
+    getInvitedLeadsRequested,
+    getAcceptedLeadsRequested, 
+} from './redux/actions';
 
 
 const mapDispatchToProps = (dispatch) => ({
-    getInvitedLeads: () => dispatch(getInvitedLeadsRequested())
+    getInvitedLeads: () => dispatch(getInvitedLeadsRequested()),
+    getAcceptedLeads: () => dispatch(getAcceptedLeadsRequested()),
 });
 
 const enhance = connect(null, mapDispatchToProps);

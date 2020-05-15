@@ -1,12 +1,21 @@
-import { SET_INVITED_LEADS  } from './actions';
+import { 
+  SET_INVITED_LEADS,
+  SET_ACCEPTED_LEADS,
+} from './actions';
 const initialState = null;
 
-const invitedLeads = (state = initialState, action) => {
+const leads = (state = initialState, action) => {
   switch (action.type) {
     case SET_INVITED_LEADS: {
       return {
           ...state,
-          data: action.payload
+          invited: action.payload
+      };
+    }
+    case SET_ACCEPTED_LEADS: {
+      return {
+          ...state,
+          accepted: action.payload
       };
     }
     default: {
@@ -15,4 +24,4 @@ const invitedLeads = (state = initialState, action) => {
   }
 };
 
-export default invitedLeads;
+export default leads;

@@ -1,15 +1,26 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
+import AcceptedItem from './accepted.item';
 
 const Accepted = (props) => {
 
     const {
-        show
+        show,
+        acceptedLeads
     } = props;
 
+    console.log('props', props);
+    
     return (
-        show && <Container>
-            <Typography>This is Accepted tab</Typography>
+        show &&
+        <Container>
+           
+            {acceptedLeads && acceptedLeads.map((lead, index) => (
+                 <AcceptedItem key={`invited-${index}`} 
+                    {...lead}
+                 />
+            ))}
+            {!acceptedLeads && <Typography>Sorry, nothing to show</Typography>}
         </Container>
     );
 };

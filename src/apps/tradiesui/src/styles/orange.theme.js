@@ -5,7 +5,7 @@ import grey from '@material-ui/core/colors/grey';
 const orangeTheme = createMuiTheme({
     typography: {
         fontFamily: 'Verdana',
-        fontSize: 12
+        fontSize: 14
     },
     palette: {
         primary: orange,
@@ -13,8 +13,7 @@ const orangeTheme = createMuiTheme({
     },
     status: {
         danger: 'red',
-    },
-    spacing: [0, 4, 8, 16, 32, 64],
+    }
 });
 
 export default orangeTheme;

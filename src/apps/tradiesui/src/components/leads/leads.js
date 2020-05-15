@@ -13,14 +13,16 @@ const Leads = (props) => {
     };
 
     const {
-        getInvitedLeads
+        getInvitedLeads,
+        getAcceptedLeads,
     } = props;
 
     const classes = useStyles();
     
     useEffect(() => {
         if(value === 0) getInvitedLeads();
-    },[value, getInvitedLeads]);
+        if(value === 1) getAcceptedLeads();
+    },[value, getInvitedLeads, getAcceptedLeads]);
 
     return (
         <Grid className={classes.root}>

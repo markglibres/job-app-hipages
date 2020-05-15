@@ -3,7 +3,7 @@ import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     root : {
-        width: 800,
+        width: 900,
         backgroundColor: grey[300],
         padding: 10
     },
@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary[400],
     },
     listItem: {
-      paddingTop: 10,
-      paddingBottom: 10,
+      paddingTop: 15,
+      paddingBottom: 15,
       paddingLeft: 0,
       paddingRight: 0
     },
@@ -34,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold'
     },
     bold: {
+        fontWeight: 'bold'
+    },
+    description: {
+        fontSize: theme.typography.fontSize - 1,
+    },
+    contact: {
+        color: theme.palette.primary[400],
         fontWeight: 'bold'
     }
   }));
