@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import services from '../../services';
+import services from '../services';
 import { 
     GET_INVITED_LEADS_REQUESTED,
     setInvitedLeads

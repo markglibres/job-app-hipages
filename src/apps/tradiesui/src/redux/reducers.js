@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import invitedLeads from './invitedleads/reducers';
+import invitedLeads from '../components/leads/redux/reducers';
 
 export default combineReducers({ 
     invitedLeads

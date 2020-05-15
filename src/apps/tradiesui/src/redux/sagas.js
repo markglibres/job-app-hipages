@@ -1,5 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
-import invitedLeadsSaga from './invitedleads/sagas';
+import invitedLeadsSaga from '../components/leads/redux/sagas';
 
 export default function* rootSaga(){
     yield all ([

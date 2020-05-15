@@ -1,5 +1,5 @@
-import orange from './orange.theme';
+import orangeTheme from './orange.theme';
 
 export default {
-    orange
+    orangeTheme
 };

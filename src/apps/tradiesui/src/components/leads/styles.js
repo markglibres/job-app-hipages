@@ -13,15 +13,28 @@ const useStyles = makeStyles((theme) => ({
     tabContent: {
         backgroundColor: '#ffffff',
         marginTop: 15,
-        padding: 0
+        padding: 0,
+        color: grey[600]
     },
     avatar: {
-      color: theme.palette.getContrastText(theme.palette.primary[500]),
-      backgroundColor: theme.palette.primary[500],
+      color: '#fff',
+      backgroundColor: theme.palette.primary[400],
     },
     listItem: {
       paddingTop: 10,
       paddingBottom: 10,
+      paddingLeft: 0,
+      paddingRight: 0
+    },
+    primaryButton: {
+        color: '#fff',
+    },
+    emphasis: {
+        color: '#000',
+        fontWeight: 'bold'
+    },
+    bold: {
+        fontWeight: 'bold'
     }
   }));
 

@@ -24,17 +24,17 @@ const InvitedItem = (props) => {
 
     return (
         <List>
-            <ListItem classes={{ root: classes.listItem }}>
-                <Box pl={3} pr={2}>
-                    <Avatar className={classes.avatar}>M</Avatar>
+            <ListItem className={classes.listItem}>
+                <Box pl={3} pr={2} >
+                    <Avatar className={classes.avatar}>{firstname.charAt(0).toUpperCase()}</Avatar>
                 </Box>
                 <Grid>
-                    <Typography>{firstname}</Typography>
+                    <Typography className={classes.emphasis}>{firstname}</Typography>
                     <Moment format="MMMM DD @ hh:mm a">{dateCreated}</Moment>
                 </Grid>
             </ListItem>
             <Divider light/>
-            <ListItem classes={{ root: classes.listItem }}>
+            <ListItem className={classes.listItem}>
                 <RoomOutlinedIcon />
                 <Box mr={3}><Typography>{suburb}</Typography></Box>
                 <ClassOutlinedIcon/>
@@ -42,15 +42,15 @@ const InvitedItem = (props) => {
                 <Typography>Job ID: {id}</Typography>
             </ListItem>
             <Divider light/>
-            <ListItem classes={{ root: classes.listItem }}> 
+            <ListItem className={classes.listItem}> 
                 <Typography>{description}</Typography>
             </ListItem>
             <Divider light/>
-            <ListItem classes={{ root: classes.listItem }}>
-                <Box mr={3}><Button variant="contained" color="primary">Accept</Button></Box>
+            <ListItem className={classes.listItem}>
+                <Box mr={3}><Button variant="contained" color="primary" classes={{root: classes.primaryButton}}>Accept</Button></Box>
                 <Box mr={4}><Button variant="contained" >Decline</Button></Box>
                 <Grid container direction="row">
-                    <Box  mr={2} fontWeight="fontWeightBold">$ {parseFloat(price).toFixed(3)}</Box>
+                    <Box  mr={2} fontWeight="fontWeightBold" className={classes.emphasis}>$ {parseFloat(price).toFixed(3)}</Box>
                     <Typography>Lead Invitation</Typography>
                 </Grid>
                 

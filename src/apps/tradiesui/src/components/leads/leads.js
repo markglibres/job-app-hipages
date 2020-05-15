@@ -23,22 +23,22 @@ const Leads = (props) => {
     },[value, getInvitedLeads]);
 
     return (
-        <Grid classes={{root: classes.root }}>
+        <Grid className={classes.root}>
             <Tabs
-                classes={{root: classes.tabs }}
+                className={classes.tabs}
                 value={value}
                 onChange={handleChange}
                 indicatorColor="primary"
                 textColor="primary"
                 variant="fullWidth"
             >
-                <Tab label="Invited" />
-                <Tab label="Accepted" />
+                <Tab label="Invited" className={classes.bold}/>
+                <Tab label="Accepted" className={classes.bold}/>
             </Tabs>
-            <Paper classes={{root: classes.tabContent}} >
+            <Paper className={classes.tabContent} >
                 <Invited show={value === 0}/>
             </Paper> 
-            <Paper classes={{root: classes.tabContent}} >
+            <Paper className={classes.tabContent} >
                 <Accepted show={value === 1}/>
             </Paper>
         </Grid>

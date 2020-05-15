@@ -7,7 +7,7 @@ import themes from './styles';
 
 function App() {
   return (
-    <ThemeProvider theme={themes.orange}>
+    <ThemeProvider theme={themes.orangeTheme}>
       <Grid container>
         {Pages.map(page => (
           <Route {...page.routeProps} key={page.name} />
