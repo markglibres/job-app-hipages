@@ -24,12 +24,6 @@ const InvitedItem = (props) => {
         _links,
     } = props;
 
-    const handleAction = (actionType) => {
-
-        var options = _links[actionType];
-        executeAction(options);
-    };
-
     return (
         <List>
             <ListItem className={classes.listItem}>
@@ -55,22 +49,17 @@ const InvitedItem = (props) => {
             </ListItem>
             <Divider light/>
             <ListItem className={classes.listItem}>
-                <Box mr={3}>
-                    <Button 
-                        variant="contained"
-                        color="primary"
-                        classes={{root: classes.primaryButton}}
-                        onClick={() => { handleAction('accept'); }}>
-                            Accept
-                    </Button>
+                {_links && Object.values(_links).map(link => (
+                    link.rel !== 'self' && <Box mr={3}>
+                        <Button 
+                            variant="contained"
+                            color={link.name}
+                            classes={link.name === 'primary' ? {root: classes.primaryButton}: {}}
+                            onClick={() => { executeAction(link); }}>
+                                {link.title}
+                        </Button>
                     </Box>
-                <Box mr={4}>
-                    <Button 
-                        variant="contained" 
-                        onClick={() => { handleAction('decline'); }}>
-                        Decline
-                    </Button>
-                </Box>
+                ))}
                 <Grid container direction="row">
                     <Box  mr={2} fontWeight="fontWeightBold" className={classes.emphasis}>$ {parseFloat(price).toFixed(3)}</Box>
                     <Typography>Lead Invitation</Typography>

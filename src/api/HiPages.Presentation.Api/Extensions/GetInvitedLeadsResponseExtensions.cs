@@ -52,7 +52,10 @@ namespace HiPages.Presentation.Api.Extensions
                             new Dictionary<string, object>
                             {
                                 {"href", $"{host}/api/leads/accepted/{lead.Id}"},
-                                {"method", "POST"}
+                                {"method", "POST"},
+                                {"name", "primary"},
+                                {"title", "Accept"},
+                                {"rel", "accept"}
                             }
                         },
                         {
@@ -60,7 +63,9 @@ namespace HiPages.Presentation.Api.Extensions
                             new Dictionary<string, object>
                             {
                                 {"href", $"{host}/api/leads/invited/{lead.Id}"},
-                                {"method", "DELETE"}
+                                {"method", "DELETE"},
+                                {"title", "Decline"},
+                                {"rel", "decline"}
                             }
                         }
                     });
