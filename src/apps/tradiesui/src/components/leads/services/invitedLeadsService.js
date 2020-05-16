@@ -1,5 +1,6 @@
 import config from '../../../config';
 import axios from 'axios';
+import halson from 'halson';
 
 const getInvitedLeadsResponse = async () => {
     return await axios.get(`${config.apiBaseUrl}/leads/invited`);
@@ -7,7 +8,9 @@ const getInvitedLeadsResponse = async () => {
 
 const getInvitedLeads = async () => {
     var response = await getInvitedLeadsResponse();
-    return response.data;
+
+    var leads = halson(response.data);
+    return leads.getEmbeds('leads');
 };
 
 export default getInvitedLeads;

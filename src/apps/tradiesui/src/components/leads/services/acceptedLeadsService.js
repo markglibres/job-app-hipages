@@ -1,5 +1,6 @@
 import config from '../../../config';
 import axios from 'axios';
+import halson from 'halson';
 
 const getAcceptedLeadsResponse = async () => {
     return await axios.get(`${config.apiBaseUrl}/leads/accepted`);
@@ -7,7 +8,8 @@ const getAcceptedLeadsResponse = async () => {
 
 const getAcceptedLeads = async () => {
     var response = await getAcceptedLeadsResponse();
-    return response.data;
+    var leads = halson(response.data);
+    return leads.getEmbeds('leads');
 };
 
 export default getAcceptedLeads;

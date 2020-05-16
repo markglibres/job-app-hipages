@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HiPages.Presentation.Api.Extensions;
 using HiPages.Presentation.Api.Seedwork.Contacts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +39,7 @@ namespace HiPages.Presentation.Api.AcceptedLeads
                 }
             };
 
-            return Ok(response);
+            return Ok(response.ToHal(HttpContext.Request));
         }
     }
 }

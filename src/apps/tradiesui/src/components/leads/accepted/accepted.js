@@ -9,8 +9,6 @@ const Accepted = (props) => {
         acceptedLeads
     } = props;
 
-    console.log('props', props);
-    
     return (
         show &&
         <Container>

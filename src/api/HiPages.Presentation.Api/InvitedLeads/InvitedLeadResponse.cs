@@ -1,4 +1,5 @@
-﻿using HiPages.Presentation.Api.Seedwork.Leads;
+﻿using Halcyon.HAL.Attributes;
+using HiPages.Presentation.Api.Seedwork.Leads;
 
 namespace HiPages.Presentation.Api.InvitedLeads
 {

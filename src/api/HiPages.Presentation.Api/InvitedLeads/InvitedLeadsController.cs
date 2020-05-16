@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HiPages.Presentation.Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HiPages.Presentation.Api.InvitedLeads
@@ -29,7 +30,9 @@ namespace HiPages.Presentation.Api.InvitedLeads
                 }
             };
 
-            return Ok(response);
+            // for now let's create our own HAL converter
+            // TODO: find a better way to do this, such as dotnetcore client library for HAL json
+            return Ok(response.ToHal(HttpContext.Request));
         }
     }
 }

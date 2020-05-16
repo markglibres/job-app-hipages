@@ -10,7 +10,7 @@ import {
 function* getInvitedLeadsWorker() {
     try {
         var response = yield call(services.getInvitedLeads);
-        yield put(setInvitedLeads(response.data));
+        yield put(setInvitedLeads(response));
     } catch(e) {
         console.log('error', e);
     }
@@ -23,7 +23,7 @@ export function* invitedLeadsSaga (){
 function* getAcceptedLeadsWorker() {
     try {
         var response = yield call(services.getAcceptedLeads);
-        yield put(setAcceptedLeads(response.data));
+        yield put(setAcceptedLeads(response));
     } catch(e) {
         console.log('error', e);
     }
