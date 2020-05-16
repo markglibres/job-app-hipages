@@ -6,11 +6,18 @@ const getInvitedLeadsResponse = async () => {
     return await axios.get(`${config.apiBaseUrl}/leads/invited`);
 };
 
-const getInvitedLeads = async () => {
+export const getInvitedLeads = async () => {
     var response = await getInvitedLeadsResponse();
 
     var leads = halson(response.data);
     return leads.getEmbeds('leads');
 };
 
-export default getInvitedLeads;
+export const executeInvitedAction = async (options) => {
+
+    var config = {
+        method: options.method,
+        url: options.href,
+    };
+    return await axios(config);
+};

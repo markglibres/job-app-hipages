@@ -6,7 +6,8 @@ const Invited = (props) => {
 
     const {
         show,
-        invitedLeads
+        invitedLeads,
+        executeAction,
     } = props;
 
     return (
@@ -14,7 +15,9 @@ const Invited = (props) => {
         <Container>
            
             {invitedLeads && invitedLeads.map((lead, index) => (
-                 <InvitedItem key={`invited-${index}`} 
+                 <InvitedItem 
+                    key={`invited-${index}`}
+                    executeAction={executeAction}
                     {...lead}
                  />
             ))}

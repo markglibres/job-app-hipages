@@ -34,5 +34,13 @@ namespace HiPages.Presentation.Api.InvitedLeads
             // TODO: find a better way to do this, such as dotnetcore client library for HAL json
             return Ok(response.ToHal(HttpContext.Request));
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeclineInvitedLead([FromRoute] string id)
+        {
+            Console.WriteLine("Lead declined");
+            return Ok();
+        }
     }
 }

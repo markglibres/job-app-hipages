@@ -20,7 +20,15 @@ const InvitedItem = (props) => {
         id,
         description,
         price,
+        executeAction,
+        _links,
     } = props;
+
+    const handleAction = (actionType) => {
+
+        var options = _links[actionType];
+        executeAction(options);
+    };
 
     return (
         <List>
@@ -47,8 +55,22 @@ const InvitedItem = (props) => {
             </ListItem>
             <Divider light/>
             <ListItem className={classes.listItem}>
-                <Box mr={3}><Button variant="contained" color="primary" classes={{root: classes.primaryButton}}>Accept</Button></Box>
-                <Box mr={4}><Button variant="contained" >Decline</Button></Box>
+                <Box mr={3}>
+                    <Button 
+                        variant="contained"
+                        color="primary"
+                        classes={{root: classes.primaryButton}}
+                        onClick={() => { handleAction('accept'); }}>
+                            Accept
+                    </Button>
+                    </Box>
+                <Box mr={4}>
+                    <Button 
+                        variant="contained" 
+                        onClick={() => { handleAction('decline'); }}>
+                        Decline
+                    </Button>
+                </Box>
                 <Grid container direction="row">
                     <Box  mr={2} fontWeight="fontWeightBold" className={classes.emphasis}>$ {parseFloat(price).toFixed(3)}</Box>
                     <Typography>Lead Invitation</Typography>

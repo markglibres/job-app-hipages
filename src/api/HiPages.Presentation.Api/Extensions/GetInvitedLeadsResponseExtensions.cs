@@ -59,8 +59,8 @@ namespace HiPages.Presentation.Api.Extensions
                             "decline",
                             new Dictionary<string, object>
                             {
-                                {"href", $"{host}/api/leads/declined/{lead.Id}"},
-                                {"method", "POST"}
+                                {"href", $"{host}/api/leads/invited/{lead.Id}"},
+                                {"method", "DELETE"}
                             }
                         }
                     });

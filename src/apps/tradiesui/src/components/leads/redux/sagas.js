@@ -5,6 +5,8 @@ import {
     setInvitedLeads,
     GET_ACCEPTED_LEADS_REQUESTED,
     setAcceptedLeads,
+    EXECUTE_INVITED_ACTION,
+    getInvitedLeadsRequested,
 } from './actions';
 
 function* getInvitedLeadsWorker() {
@@ -31,4 +33,17 @@ function* getAcceptedLeadsWorker() {
 
 export function* acceptedLeadsSaga (){
     yield takeLatest(GET_ACCEPTED_LEADS_REQUESTED, getAcceptedLeadsWorker);
+}
+
+function* executeInvitedActionWorker(params) {
+    try {
+        yield call(services.executeInvitedAction, params.payload);
+        yield put(getInvitedLeadsRequested());
+    } catch(e) {
+        console.log('error', e);
+    }
+}
+
+export function* executeInvitedActionSaga (){
+    yield takeLatest(EXECUTE_INVITED_ACTION, executeInvitedActionWorker);
 }

@@ -2,6 +2,7 @@ export const GET_INVITED_LEADS_REQUESTED = 'GET_INVITED_LEADS_REQUESTED';
 export const SET_INVITED_LEADS = 'SET_INVITED_LEADS';
 export const GET_ACCEPTED_LEADS_REQUESTED = 'GET_ACCEPTED_LEADS_REQUESTED';
 export const SET_ACCEPTED_LEADS = 'SET_ACCEPTED_LEADS';
+export const EXECUTE_INVITED_ACTION = 'EXECUTE_INVITED_ACTION';
 
 
 export const getInvitedLeadsRequested = () => {
@@ -18,4 +19,8 @@ export const getAcceptedLeadsRequested = () => {
 
 export const setAcceptedLeads = (payload) => {
     return { type: SET_ACCEPTED_LEADS, payload };
+};
+
+export const executeInvitedAction = (payload) => {
+    return { type: EXECUTE_INVITED_ACTION, payload };
 };

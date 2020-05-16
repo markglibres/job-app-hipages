@@ -41,5 +41,13 @@ namespace HiPages.Presentation.Api.AcceptedLeads
 
             return Ok(response.ToHal(HttpContext.Request));
         }
+
+        [HttpPost]
+        [Route("{id}")]
+        public async Task<IActionResult> AcceptInvitedLead([FromRoute] string id)
+        {
+            Console.Write("Invited Lead Accepted");
+            return Ok();
+        }
     }
 }
