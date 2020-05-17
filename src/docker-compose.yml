@@ -26,6 +26,7 @@ services:
       
   techchallenge.webapi:
     image: ${DOCKER_REGISTRY-}techchallengewebapi
+    container_name: ${DOCKER_REGISTRY-}techchallengewebapi
     hostname: techchallenge.webapi
     restart: always
     build:
@@ -43,7 +44,8 @@ services:
       - 'ConnectionStrings__DefaultConnection=Server=techchallenge.mysql;Port=3306;Database=hipages;Uid=root;Pwd=hipages;'
       
   techchallenge.app:
-    container_name: techchallenge.app
+    image: ${DOCKER_REGISTRY-}techchallengeapp
+    container_name: ${DOCKER_REGISTRY-}techchallengeapp
     hostname: techchallenge.app
     build:
       context: ./apps/tradiesui
