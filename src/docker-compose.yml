@@ -1,0 +1,67 @@
+version: '3.4'
+
+services:
+  techchallenge.mysql:
+    image: mysql:5.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: hipages
+      MYSQL_DATABASE: hipages
+    ports:
+      - "3306:3306"
+    volumes:
+        - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+        - techchallenge.network
+        
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - techchallenge.network
+    depends_on:
+      - techchallenge.mysql
+      
+  techchallenge.webapi:
+    image: ${DOCKER_REGISTRY-}techchallengewebapi
+    hostname: techchallenge.webapi
+    restart: always
+    build:
+      context: ./services/leads
+      dockerfile: Leads.Presentation.Api/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+        - techchallenge.mysql
+    networks:
+        - techchallenge.network
+        - techchallenge.network.frontend
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - 'ConnectionStrings__DefaultConnection=Server=techchallenge.mysql;Port=3306;Database=hipages;Uid=root;Pwd=hipages;'
+      
+  techchallenge.app:
+    container_name: techchallenge.app
+    hostname: techchallenge.app
+    build:
+      context: ./apps/tradiesui
+      dockerfile: Dockerfile
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:5000/api
+    networks:
+      - techchallenge.network.frontend
+    stdin_open: true
+    depends_on:
+        - techchallenge.webapi
+
+networks:
+  techchallenge.network:
+    driver: bridge
+  techchallenge.network.frontend:
+    driver: bridge

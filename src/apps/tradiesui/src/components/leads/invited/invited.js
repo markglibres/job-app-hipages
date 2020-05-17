@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import InvitedItem from './invited.item';
+import { v4 as uuidv4 } from 'uuid';
 
 const Invited = (props) => {
 
@@ -14,9 +15,9 @@ const Invited = (props) => {
         show &&
         <Container>
            
-            {invitedLeads && invitedLeads.map((lead, index) => (
+            {invitedLeads && invitedLeads.map(lead => (
                  <InvitedItem 
-                    key={`invited-${index}`}
+                    key={uuidv4()}
                     executeAction={executeAction}
                     {...lead}
                  />

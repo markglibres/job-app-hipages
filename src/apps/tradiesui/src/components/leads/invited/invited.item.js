@@ -8,6 +8,7 @@ import ClassOutlinedIcon from '@material-ui/icons/ClassOutlined';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+import { v4 as uuidv4 } from 'uuid';
 
 const InvitedItem = (props) => {
 
@@ -50,7 +51,8 @@ const InvitedItem = (props) => {
             <Divider light/>
             <ListItem className={classes.listItem}>
                 {_links && Object.values(_links).map(link => (
-                    link.rel !== 'self' && <Box mr={3}>
+                    link.rel !== 'self' && 
+                    <Box mr={3} key={uuidv4()}>
                         <Button 
                             variant="contained"
                             color={link.name}
