@@ -8,6 +8,9 @@ namespace Leads.Infrastructure.MySqlDatabase
     {
         public DbSet<Suburb> Suburbs { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+
+        public DbSet<JobInfo> JobsInfo { get; set; }
         public JobsDbContext(DbContextOptions<JobsDbContext> contextOptions)
             : base(contextOptions)
         {

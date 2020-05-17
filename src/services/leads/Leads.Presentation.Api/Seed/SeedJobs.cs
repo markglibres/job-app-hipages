@@ -15,11 +15,11 @@ namespace Leads.Presentation.Api.Seed
 
             foreach (var data in SeedData())
             {
-                var isExists = service.IsExists(data.ReferenceId).Result;
+                var isExists = service.IsExistsAsync(data.ReferenceId).Result;
                 if(isExists) continue;
 
                 var entity = service
-                    .Create(
+                    .CreateAsync(
                         data.Contact.Name,
                         data.Contact.Phone,
                         data.Contact.Email,

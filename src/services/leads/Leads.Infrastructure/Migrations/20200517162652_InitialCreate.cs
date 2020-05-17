@@ -23,6 +23,30 @@ namespace Leads.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "jobs_info",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    job_id = table.Column<int>(nullable: false),
+                    reference_id = table.Column<Guid>(nullable: false),
+                    price = table.Column<int>(type: "int(3)", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    contact_name = table.Column<string>(type: "varchar(255)", nullable: true),
+                    contact_phone = table.Column<string>(type: "varchar(255)", nullable: true),
+                    contact_email = table.Column<string>(type: "varchar(255)", nullable: true),
+                    suburb_name = table.Column<string>(type: "varchar(255)", nullable: true),
+                    suburb_postcode = table.Column<string>(type: "varchar(4)", nullable: true),
+                    category_name = table.Column<string>(type: "varchar(255)", nullable: true),
+                    job_status = table.Column<string>(type: "varchar(50)", nullable: true),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_jobs_info", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "suburbs",
                 columns: table => new
                 {
@@ -37,7 +61,7 @@ namespace Leads.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "job",
+                name: "jobs",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
@@ -56,15 +80,15 @@ namespace Leads.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_job", x => x.id);
+                    table.PrimaryKey("PK_jobs", x => x.id);
                     table.ForeignKey(
-                        name: "f_k_job_categories_category_id",
+                        name: "f_k_jobs_categories_category_id",
                         column: x => x.category_id,
                         principalTable: "categories",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "f_k_job_suburbs_suburb_id",
+                        name: "f_k_jobs_suburbs_suburb_id",
                         column: x => x.suburb_id,
                         principalTable: "suburbs",
                         principalColumn: "id",
@@ -82,19 +106,29 @@ namespace Leads.Infrastructure.Migrations
                 columns: new[] { "name", "parent_category_id" });
 
             migrationBuilder.CreateIndex(
-                name: "i_x_job_category_id",
-                table: "job",
+                name: "i_x_jobs_category_id",
+                table: "jobs",
                 column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "i_x_job_reference_id",
-                table: "job",
+                name: "i_x_jobs_reference_id",
+                table: "jobs",
                 column: "reference_id");
 
             migrationBuilder.CreateIndex(
-                name: "i_x_job_suburb_id",
-                table: "job",
+                name: "i_x_jobs_suburb_id",
+                table: "jobs",
                 column: "suburb_id");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_jobs_info_job_status",
+                table: "jobs_info",
+                column: "job_status");
+
+            migrationBuilder.CreateIndex(
+                name: "i_x_jobs_info_reference_id",
+                table: "jobs_info",
+                column: "reference_id");
 
             migrationBuilder.CreateIndex(
                 name: "idx_suburbs_postcode",
@@ -110,7 +144,10 @@ namespace Leads.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "job");
+                name: "jobs");
+
+            migrationBuilder.DropTable(
+                name: "jobs_info");
 
             migrationBuilder.DropTable(
                 name: "categories");

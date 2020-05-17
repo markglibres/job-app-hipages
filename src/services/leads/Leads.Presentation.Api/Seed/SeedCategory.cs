@@ -15,12 +15,12 @@ namespace Leads.Presentation.Api.Seed
 
             foreach (var category in SeedData())
             {
-                var isExists = service.IsExists(category.Name, category.ParentCategoryId)
+                var isExists = service.IsExistsAsync(category.Name, category.ParentCategoryId)
                     .Result;
                 if (isExists) continue;
 
                 service
-                    .Create(category.Id, category.Name, category.ParentCategoryId)
+                    .CreateAsync(category.Id, category.Name, category.ParentCategoryId)
                     .Wait();
             }
         }

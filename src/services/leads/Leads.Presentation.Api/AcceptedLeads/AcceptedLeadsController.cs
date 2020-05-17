@@ -1,9 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Leads.Application.AcceptLead;
+using Leads.Application.GetAcceptedLeads;
 using Leads.Presentation.Api.Extensions;
 using Leads.Presentation.Api.Seedwork.Contacts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Leads.Presentation.Api.AcceptedLeads
 {
@@ -11,42 +15,58 @@ namespace Leads.Presentation.Api.AcceptedLeads
     [ApiController]
     public class AcceptedLeadsController : ControllerBase
     {
+        private readonly ILogger<AcceptedLeadsController> _logger;
+        private readonly IMediator _mediator;
+
+        public AcceptedLeadsController(
+            ILogger<AcceptedLeadsController> logger,
+            IMediator mediator)
+        {
+            _logger = logger;
+            _mediator = mediator;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAccepted()
         {
-            var response = new GetAccepetedLeadsResponse
+            var query = new GetAcceptedLeadsQuery();
+            var response = await _mediator.Send(query);
+
+
+            var httpResponse = new GetAccepetedLeadsResponse
             {
-                Data = new List<AcceptedLeadResponse>
-                {
-                    new AcceptedLeadResponse
+                Data = response
+                    .Select(e => new AcceptedLeadResponse
                     {
-                        Category = "General Building Work",
-                        DateCreated = DateTime.Now,
-                        Description = "Plaster exposed brick walls (see photos), " +
-                                      "square off 2 archways (see photos), " +
-                                      "and expand pantry (see photos)",
-                        Firstname = "Pete",
-                        Id = "5141895",
-                        Price = 26,
-                        Suburb = "Caramar 6031",
+                        Category = e.CategoryName,
+                        DateCreated = e.CreatedAt,
+                        Description = e.Description,
+                        Id = e.Id.ToString(),
+                        Price = e.Price,
+                        Suburb = $"{e.SuburbName} ${e.SuburbPostcode}",
                         Contact = new Contact
                         {
-                            Email = "fake@malinator.com",
-                            Fullname = "Pete",
-                            Phone = "0412345678"
+                            Email = e.ContactEmail,
+                            Fullname = e.ContactName,
+                            Phone = e.ContactPhone
                         }
-                    }
-                }
+                    })
             };
 
-            return Ok(response.ToHal(HttpContext.Request));
+            return Ok(httpResponse.ToHal(HttpContext.Request));
         }
 
         [HttpPost]
         [Route("{id}")]
-        public async Task<IActionResult> AcceptInvitedLead([FromRoute] string id)
+        public async Task<IActionResult> AcceptInvitedLead([FromRoute] int id)
         {
-            Console.Write("Invited Lead Accepted");
+            var command = new AcceptLeadCommand
+            {
+                JobId = id
+            };
+
+            await _mediator.Send(command);
+
             return Ok();
         }
     }

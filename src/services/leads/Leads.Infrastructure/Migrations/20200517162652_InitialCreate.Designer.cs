@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Leads.Infrastructure.Migrations
 {
     [DbContext(typeof(JobsDbContext))]
-    [Migration("20200517094254_InitialCreate")]
+    [Migration("20200517162652_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,15 +94,82 @@ namespace Leads.Infrastructure.Migrations
                         .HasAnnotation("MySql:ValueGeneratedOnAdd", true);
 
                     b.HasIndex("CategoryId")
-                        .HasName("i_x_job_category_id");
+                        .HasName("i_x_jobs_category_id");
 
                     b.HasIndex("ReferenceId")
-                        .HasName("i_x_job_reference_id");
+                        .HasName("i_x_jobs_reference_id");
 
                     b.HasIndex("SuburbId")
-                        .HasName("i_x_job_suburb_id");
+                        .HasName("i_x_jobs_suburb_id");
 
-                    b.ToTable("job");
+                    b.ToTable("jobs");
+                });
+
+            modelBuilder.Entity("Leads.Domain.Entities.JobInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnName("category_name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnName("contact_email")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ContactName")
+                        .HasColumnName("contact_name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ContactPhone")
+                        .HasColumnName("contact_phone")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnName("created_at")
+                        .HasColumnType("TIMESTAMP");
+
+                    b.Property<string>("Description")
+                        .HasColumnName("description")
+                        .HasColumnType("text");
+
+                    b.Property<int>("JobId")
+                        .HasColumnName("job_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobStatus")
+                        .HasColumnName("job_status")
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<int>("Price")
+                        .HasColumnName("price")
+                        .HasColumnType("int(3)");
+
+                    b.Property<Guid>("ReferenceId")
+                        .HasColumnName("reference_id")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("SuburbName")
+                        .HasColumnName("suburb_name")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("SuburbPostcode")
+                        .HasColumnName("suburb_postcode")
+                        .HasColumnType("varchar(4)");
+
+                    b.HasKey("Id")
+                        .HasAnnotation("MySql:ValueGeneratedOnAdd", true);
+
+                    b.HasIndex("JobStatus")
+                        .HasName("i_x_jobs_info_job_status");
+
+                    b.HasIndex("ReferenceId")
+                        .HasName("i_x_jobs_info_reference_id");
+
+                    b.ToTable("jobs_info");
                 });
 
             modelBuilder.Entity("Leads.Domain.Entities.Suburb", b =>
@@ -137,14 +204,14 @@ namespace Leads.Infrastructure.Migrations
                     b.HasOne("Leads.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .HasConstraintName("f_k_job_categories_category_id")
+                        .HasConstraintName("f_k_jobs_categories_category_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Leads.Domain.Entities.Suburb", "Suburb")
                         .WithMany()
                         .HasForeignKey("SuburbId")
-                        .HasConstraintName("f_k_job_suburbs_suburb_id")
+                        .HasConstraintName("f_k_jobs_suburbs_suburb_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -168,11 +235,11 @@ namespace Leads.Infrastructure.Migrations
 
                             b1.HasKey("JobId");
 
-                            b1.ToTable("job");
+                            b1.ToTable("jobs");
 
                             b1.WithOwner()
                                 .HasForeignKey("JobId")
-                                .HasConstraintName("f_k_job_job_id");
+                                .HasConstraintName("f_k_jobs_jobs_id");
                         });
                 });
 #pragma warning restore 612, 618

@@ -23,7 +23,7 @@ namespace Leads.Domain.Services
             _repository = repository;
         }
 
-        public async Task<Suburb> Create(int id, string name, string postCode)
+        public async Task<Suburb> CreateAsync(int id, string name, string postCode)
         {
             var entity = new Suburb(id, name, postCode);
             var result = await _repository.InsertAsync(entity);
@@ -31,7 +31,7 @@ namespace Leads.Domain.Services
             return result;
         }
 
-        public async Task<bool> IsExists(string name, string postCode)
+        public async Task<bool> IsExistsAsync(string name, string postCode)
         {
             Guard.Against.Empty(name, "name");
             Guard.Against.Empty(postCode, "postCode");

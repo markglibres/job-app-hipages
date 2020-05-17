@@ -1,9 +1,14 @@
 using System;
+using BizzPo.Core.Domain;
+using Leads.Application.GetInvitedLeads;
 using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
 using Leads.Domain.Services;
+using Leads.Domain.Services.Seedwork;
+using Leads.Infrastructure.DomainEvents;
 using Leads.Infrastructure.MySqlDatabase;
 using Leads.Infrastructure.MySqlDatabase.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,12 +33,18 @@ namespace Leads.Presentation.Api
             services.AddDbContext<JobsDbContext>(options => options
                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddMediatR(typeof(GetInvitedLeadsQuery).Assembly);
+
             services.AddTransient<IDbRepository<Category>, CategoryRepository>();
             services.AddTransient<IDbRepository<Suburb>, SuburbRepository>();
             services.AddTransient<IDbRepository<Job>, JobRepository>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ISuburbService, SuburbService>();
             services.AddTransient<IJobService, JobService>();
+            services.AddTransient<IJobQueryService, JobQueryService>();
+            services.AddTransient<IDbRepository<JobInfo>, JobInfoRepository>();
+
+            services.AddTransient<IDomainEventsService, MediatrEventsService>();
 
             services.AddControllers();
             services.AddHealthChecks();

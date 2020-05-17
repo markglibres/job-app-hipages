@@ -23,14 +23,14 @@ namespace Leads.Domain.Services
             _repository = repository;
         }
 
-        public async Task<Category> Create(int id, string name, int parentCategoryId)
+        public async Task<Category> CreateAsync(int id, string name, int parentCategoryId)
         {
             var category = new Category(id, name, parentCategoryId);
             var result = await _repository.InsertAsync(category);
             return result;
         }
 
-        public async Task<bool> IsExists(string name, int parentCategoryId)
+        public async Task<bool> IsExistsAsync(string name, int parentCategoryId)
         {
             Guard.Against.Empty(name, "name");
 

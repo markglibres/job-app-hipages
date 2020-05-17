@@ -5,7 +5,7 @@ namespace Leads.Domain.Services
 {
     public interface ICategoryService
     {
-        Task<Category> Create(int id, string name, int parentCategoryId);
-        Task<bool> IsExists(string name, int parentCategoryId);
+        Task<Category> CreateAsync(int id, string name, int parentCategoryId);
+        Task<bool> IsExistsAsync(string name, int parentCategoryId);
     }
 }

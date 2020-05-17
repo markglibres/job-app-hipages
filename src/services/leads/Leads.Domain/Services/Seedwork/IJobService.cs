@@ -7,7 +7,7 @@ namespace Leads.Domain.Services
 {
     public interface IJobService
     {
-        Task<Job> Create(
+        Task<Job> CreateAsync(
             string contactName,
             string contactPhone,
             string contactEmail,
@@ -17,7 +17,9 @@ namespace Leads.Domain.Services
             int categoryId,
             Guid referenceId);
 
-        Task<Job> SetStatus(int jobId, JobStatus jobStatus);
-        Task<bool> IsExists(Guid referenceId);
+        Task<Job> DeclineJobAsync(int jobId);
+        Task<Job> AcceptJobAsync(int jobId);
+        Task<bool> IsExistsAsync(Guid referenceId);
+        Task<Job> GetByReferenceId(Guid referenceId);
     }
 }

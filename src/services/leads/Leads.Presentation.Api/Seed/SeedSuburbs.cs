@@ -14,12 +14,12 @@ namespace Leads.Presentation.Api.Seed
 
             foreach (var data in SeedData())
             {
-                var isExists = service.IsExists(data.Name, data.PostCode)
+                var isExists = service.IsExistsAsync(data.Name, data.PostCode)
                     .Result;
                 if (isExists) continue;
 
                 service
-                    .Create(data.Id, data.Name, data.PostCode)
+                    .CreateAsync(data.Id, data.Name, data.PostCode)
                     .Wait();
             }
         }

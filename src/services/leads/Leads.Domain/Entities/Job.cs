@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ardalis.GuardClauses;
 using BizzPo.Core.Domain;
 using Leads.Domain.Constants;
 using Leads.Domain.Entities.Seedwork;
+using Leads.Domain.Events;
 using Leads.Domain.Extensions;
 using Leads.Domain.ValueObjects;
 using Newtonsoft.Json;
 
 namespace Leads.Domain.Entities
 {
-    public class Job : IDbEntity
+    public class Job : DbEntity
     {
-        public int Id { get; private set; }
         public JobStatus Status { get; private set; }
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
@@ -53,12 +54,16 @@ namespace Leads.Domain.Entities
             ReferenceId = referenceId;
 
             Status = JobStatus.Invited;
+
+            Emit(new JobAddedEvent(ReferenceId));
         }
 
 
         public void UpdateStatus(JobStatus jobStatus)
         {
             Status = jobStatus;
+            Emit(new JobStatusUpdatedEvent(ReferenceId, Status.ToString()));
         }
+        
     }
 }
