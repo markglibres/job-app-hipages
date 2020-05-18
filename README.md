@@ -17,7 +17,7 @@ It demonstrates the following patterns /  architecture:
 * CQRS (with separate databases for command and queries)
 * domain driven design
 * event sourcing (with own separate database)
-	* *Note: I just had a quick 15-min read about event sourcing, which means, this is my first time to implement it and pardon me if it was implemented correctly / completely*
+	* *Note: I just had a quick 15-min read about event sourcing, which means, this is my first time to implement it and pardon me if it wasn't implemented correctly / completely*
 
 ### SPA
 * react
