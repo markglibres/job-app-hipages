@@ -6,27 +6,23 @@ using Leads.Domain.Events;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Leads.Application.DomainEvents
+namespace Leads.Application.DomainEvents.JobAccepted
 {
-    public class JobAcceptedEventHandler : INotificationHandler<JobAcceptedEvent>
+    public class SaveToStoreOnJobAcceptedEventHandler : INotificationHandler<JobAcceptedEvent>
     {
         private readonly IEventSourceService<Job> _eventSourceService;
-        private readonly ILogger<JobAcceptedEventHandler> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly ILogger<SaveToStoreOnJobAcceptedEventHandler> _logger;
 
-        public JobAcceptedEventHandler( ILogger<JobAcceptedEventHandler> logger,
-            INotificationService notificationService,
+        public SaveToStoreOnJobAcceptedEventHandler( ILogger<SaveToStoreOnJobAcceptedEventHandler> logger,
             IEventSourceService<Job> eventSourceService
         )
         {
             _logger = logger;
-            _notificationService = notificationService;
             _eventSourceService = eventSourceService;
         }
 
         public async Task Handle( JobAcceptedEvent notification, CancellationToken cancellationToken )
         {
-            await _notificationService.NotifyAcceptedLeads( notification.ReferenceId );
             await _eventSourceService.Add( notification );
         }
     }

@@ -1,32 +1,27 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Leads.Application.Services.Seedwork;
-using Leads.Domain.Entities;
 using Leads.Domain.Events;
 using Leads.Domain.Services;
-using Leads.Domain.Services.Seedwork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Leads.Application.DomainEvents
+namespace Leads.Application.DomainEvents.JobCreated
 {
-    public class JobCreatedEventHandler : INotificationHandler<JobCreatedEvent>
+    public class SaveToQueryOnJobCreatedEventHandler : INotificationHandler<JobCreatedEvent>
     {
         private readonly IJobQueryService _jobQueryService;
-        private readonly IEventSourceService<Job> _eventSourceService;
         private readonly IJobService _jobService;
-        private readonly ILogger<JobCreatedEventHandler> _logger;
+        private readonly ILogger<SaveToQueryOnJobCreatedEventHandler> _logger;
 
-        public JobCreatedEventHandler( ILogger<JobCreatedEventHandler> logger,
+        public SaveToQueryOnJobCreatedEventHandler( ILogger<SaveToQueryOnJobCreatedEventHandler> logger,
             IJobService jobService,
-            IJobQueryService jobQueryService,
-            IEventSourceService<Job> eventSourceService
+            IJobQueryService jobQueryService
         )
         {
             _logger = logger;
             _jobService = jobService;
             _jobQueryService = jobQueryService;
-            _eventSourceService = eventSourceService;
         }
 
         public async Task Handle( JobCreatedEvent notification, CancellationToken cancellationToken )
@@ -47,8 +42,6 @@ namespace Leads.Application.DomainEvents
                 entity.Status.ToString(),
                 entity.CreatedAt
             );
-
-            await _eventSourceService.Add(notification);
         }
     }
 }
