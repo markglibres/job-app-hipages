@@ -91,6 +91,10 @@ With limited time, I wasn't able to implement other technologies / patterns / pr
 	```
 	git clone git@github.com:markglibres/job-app-hipages.git
 	```
+	OR
+	```
+	git clone https://github.com/markglibres/job-app-hipages.git
+	```
 2. change directory to src
 	```
 	cd job-app-hipages/src
