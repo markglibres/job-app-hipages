@@ -1,3 +1,4 @@
+
 # HiPages Tech Challenge
 This is a tech challenge for Fullstack .Net Engineer at HiPages. Click [here](https://github.com/hipages/tech-test-dot-net-engineer) for more details.
 
@@ -72,6 +73,7 @@ With limited time, I wasn't able to implement other technologies / patterns / pr
 * Unit testing - should have domain unit testing at the very least and SPA services / components
 * E2E testing - should have done end-to-end testing with the use of Cypress
 * Integration testing- should have done api tests using Jest
+* State Machine - should have implemented to handle states and actions for jobs using C# Stateless library.
 * gRPC - the services under Application Layer (JobQueryService & EventSourcingService) should have been on a separate microservice either using messages queues / event bus OR gRPC. I prefer gRPC for internal communication. See my sample implementation on this [link](https://github.com/markglibres/job-app-deltatre)
 * Hybrid microservice pattern - where the API is the centralized microservice that communicates with 3 internal microservices:
 	* Jobs service - add / update / accept / decline job leads. Send messages (either queues or gRPC) 
