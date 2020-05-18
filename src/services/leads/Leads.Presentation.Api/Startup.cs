@@ -1,4 +1,3 @@
-using System;
 using BizzPo.Core.Domain;
 using Leads.Application.GetInvitedLeads;
 using Leads.Domain.Entities;
@@ -20,20 +19,19 @@ namespace Leads.Presentation.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup( IConfiguration configuration ) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices( IServiceCollection services )
         {
-            services.AddDbContext<JobsDbContext>(options => options
-                .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<JobsDbContext>(
+                options => options
+                    .UseMySql( Configuration.GetConnectionString( "DefaultConnection" ) )
+            );
 
-            services.AddMediatR(typeof(GetInvitedLeadsQuery).Assembly);
+            services.AddMediatR( typeof( GetInvitedLeadsQuery ).Assembly );
 
             services.AddTransient<IDbRepository<Category>, CategoryRepository>();
             services.AddTransient<IDbRepository<Suburb>, SuburbRepository>();
@@ -49,35 +47,44 @@ namespace Leads.Presentation.Api
             services.AddControllers();
             services.AddHealthChecks();
 
-            services.AddCors(o => o.AddPolicy("LocalPolicy", builder =>
-            {
-                builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
-            }));
+            services.AddCors(
+                o => o.AddPolicy(
+                    "LocalPolicy",
+                    builder =>
+                    {
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    }
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure( IApplicationBuilder app, IWebHostEnvironment env )
         {
-            if (env.IsDevelopment())
+            if ( env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
-                app.UseCors("LocalPolicy");
+                app.UseCors( "LocalPolicy" );
             }
             else
+            {
                 app.UseHttpsRedirection();
+            }
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapHealthChecks("health");
-            });
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllers();
+                    endpoints.MapHealthChecks( "health" );
+                }
+            );
         }
     }
 }

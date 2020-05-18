@@ -18,49 +18,64 @@ namespace Leads.Domain.Services
         private readonly ILogger<JobQueryService> _logger;
         private readonly IDbRepository<JobInfo> _repository;
 
-        public JobQueryService(
-            ILogger<JobQueryService> logger,
-            IDbRepository<JobInfo> repository)
+        public JobQueryService( ILogger<JobQueryService> logger,
+            IDbRepository<JobInfo> repository
+        )
         {
             _logger = logger;
             _repository = repository;
         }
 
-        public async Task InsertJobAsync(
-            int jobId, Guid referenceId, decimal price, string description, 
-            string contactName, string contactPhone, string contactEmail, 
-            string suburbName, string suburbPostcode, string categoryName,
-            string jobStatus, DateTime createdAt)
+        public async Task InsertJobAsync( int jobId,
+            Guid referenceId,
+            decimal price,
+            string description,
+            string contactName,
+            string contactPhone,
+            string contactEmail,
+            string suburbName,
+            string suburbPostcode,
+            string categoryName,
+            string jobStatus,
+            DateTime createdAt
+        )
         {
-            var entity = new JobInfo(jobId, referenceId, price, description,
-                contactName, contactPhone, contactEmail,
-                suburbName, suburbPostcode, categoryName, jobStatus, createdAt);
+            var entity = new JobInfo(
+                jobId,
+                referenceId,
+                price,
+                description,
+                contactName,
+                contactPhone,
+                contactEmail,
+                suburbName,
+                suburbPostcode,
+                categoryName,
+                jobStatus,
+                createdAt
+            );
 
-            await _repository.InsertAsync(entity);
+            await _repository.InsertAsync( entity );
         }
 
-        public async Task<IEnumerable<JobInfo>> GetInvitedAsync()
+        public async Task<IEnumerable<JobInfo>> GetInvitedAsync() => await GetByStatusAsync( JobStatus.New );
+
+        public async Task<IEnumerable<JobInfo>> GetAcceptedAsync() => await GetByStatusAsync( JobStatus.Accepted );
+
+        public async Task UpdateStatus( Guid referenceId, string jobStatus )
         {
-            return await GetByStatusAsync(JobStatus.Invited);
+            var entity = await _repository.GetSingleAsync( e => e.ReferenceId.Equals( referenceId ) );
+            entity.SetStatus( jobStatus );
+
+            await _repository.SaveAsync( entity );
         }
 
-        public async Task<IEnumerable<JobInfo>> GetAcceptedAsync()
+        private async Task<IEnumerable<JobInfo>> GetByStatusAsync( JobStatus jobStatus )
         {
-            return await GetByStatusAsync(JobStatus.Accepted);
-        }
-
-        public async Task UpdateStatus(Guid referenceId, string jobStatus)
-        {
-            var entity = await _repository.GetSingleAsync(e => e.ReferenceId.Equals(referenceId));
-            entity.SetStatus(jobStatus);
-
-            await _repository.SaveAsync(entity);
-        }
-
-        private async Task<IEnumerable<JobInfo>> GetByStatusAsync(JobStatus jobStatus)
-        {
-            var entities = await _repository.GetByAsync(e =>
-                e.Where(j => j.JobStatus.Equals(jobStatus.ToString(), StringComparison.OrdinalIgnoreCase)));
+            var entities = await _repository.GetByAsync(
+                e =>
+                    e.Where( j => j.JobStatus.Equals( jobStatus.ToString(), StringComparison.OrdinalIgnoreCase ) )
+            );
 
             return entities;
         }

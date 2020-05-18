@@ -4,8 +4,6 @@ namespace Leads.Infrastructure.MySqlDatabase.Repositories
 {
     public class CategoryRepository : MySqlDbRepository<Category>
     {
-        public CategoryRepository(JobsDbContext dbContext) : base(dbContext)
-        {
-        }
+        public CategoryRepository( JobsDbContext dbContext ) : base( dbContext ) { }
     }
 }

@@ -9,11 +9,9 @@ namespace Leads.Infrastructure.DomainEvents
     //BizzPo.Core.Infrastructure.Messaging.MediatR.MediatrDomainEventsService
     public class MediatrEventsService : MediatrDomainEventsService
     {
-        public MediatrEventsService(
-            ILogger<MediatrDomainEventsService> logger,
-            IMediator mediator)
-            : base(logger, mediator)
-        {
-        }
+        public MediatrEventsService( ILogger<MediatrDomainEventsService> logger,
+            IMediator mediator
+        )
+            : base( logger, mediator ) { }
     }
 }

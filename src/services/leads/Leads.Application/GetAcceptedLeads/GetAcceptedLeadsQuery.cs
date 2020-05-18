@@ -3,7 +3,5 @@ using MediatR;
 
 namespace Leads.Application.GetAcceptedLeads
 {
-    public class GetAcceptedLeadsQuery : IRequest<IEnumerable<GetAcceptedLeadsQueryResponse>>
-    {
-    }
+    public class GetAcceptedLeadsQuery : IRequest<IEnumerable<GetAcceptedLeadsQueryResponse>> { }
 }

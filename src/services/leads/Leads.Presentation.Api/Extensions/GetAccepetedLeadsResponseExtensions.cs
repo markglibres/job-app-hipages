@@ -9,28 +9,28 @@ namespace Leads.Presentation.Api.Extensions
     // conversion to HAL format
     public static class GetAccepetedLeadsResponseExtensions
     {
-        public static dynamic ToHal(
-            this GetAccepetedLeadsResponse response,
-            HttpRequest request)
+        public static dynamic ToHal( this GetAccepetedLeadsResponse response,
+            HttpRequest request
+        )
         {
             var host = $"{request.Scheme}://{request.Host}";
             var halObject = new Dictionary<string, object>();
-            halObject.Add("_links", new Dictionary<string, object>
-            {
+
+            halObject.Add(
+                "_links",
+                new Dictionary<string, object>
                 {
-                    "self",
-                    new Dictionary<string, object>
                     {
-                        {"href", $"{host}/api/leads/accepted"},
-                        {"method", "GET"}
+                        "self", new Dictionary<string, object>
+                        {
+                            { "href", $"{host}/api/leads/accepted" },
+                            { "method", "GET" }
+                        }
                     }
                 }
-            });
+            );
 
-            halObject.Add("_embedded", new Dictionary<string, object>
-            {
-                {"leads", response.Data.ToArray()}
-            });
+            halObject.Add( "_embedded", new Dictionary<string, object> { { "leads", response.Data.ToArray() } } );
 
             return halObject;
         }

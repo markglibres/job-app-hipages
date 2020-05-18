@@ -6,21 +6,20 @@ namespace Leads.Infrastructure.MySqlDatabase
 {
     public class JobsDbContext : DbContext
     {
+        public JobsDbContext( DbContextOptions<JobsDbContext> contextOptions )
+            : base( contextOptions ) { }
+
         public DbSet<Suburb> Suburbs { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Job> Jobs { get; set; }
 
         public DbSet<JobInfo> JobsInfo { get; set; }
-        public JobsDbContext(DbContextOptions<JobsDbContext> contextOptions)
-            : base(contextOptions)
-        {
-        }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating( ModelBuilder modelBuilder )
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly( GetType().Assembly );
             modelBuilder.Model.UseSnakeCase();
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating( modelBuilder );
         }
     }
 }

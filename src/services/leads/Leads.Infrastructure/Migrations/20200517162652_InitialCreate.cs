@@ -6,154 +6,168 @@ namespace Leads.Infrastructure.Migrations
 {
     public partial class InitialCreate : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+        protected override void Up( MigrationBuilder migrationBuilder )
         {
             migrationBuilder.CreateTable(
-                name: "categories",
-                columns: table => new
+                "categories",
+                table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    parent_category_id = table.Column<int>(nullable: false)
+                    id = table.Column<int>()
+                        .Annotation( "MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn ),
+                    name = table.Column<string>( "varchar(255)", nullable: true ),
+                    parent_category_id = table.Column<int>()
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_categories", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey( "PK_categories", x => x.id ); }
+            );
 
             migrationBuilder.CreateTable(
-                name: "jobs_info",
-                columns: table => new
+                "jobs_info",
+                table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    job_id = table.Column<int>(nullable: false),
-                    reference_id = table.Column<Guid>(nullable: false),
-                    price = table.Column<int>(type: "int(3)", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: true),
-                    contact_name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    contact_phone = table.Column<string>(type: "varchar(255)", nullable: true),
-                    contact_email = table.Column<string>(type: "varchar(255)", nullable: true),
-                    suburb_name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    suburb_postcode = table.Column<string>(type: "varchar(4)", nullable: true),
-                    category_name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    job_status = table.Column<string>(type: "varchar(50)", nullable: true),
-                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                    id = table.Column<int>()
+                        .Annotation( "MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn ),
+                    job_id = table.Column<int>(),
+                    reference_id = table.Column<Guid>(),
+                    price = table.Column<int>( "int(3)" ),
+                    description = table.Column<string>( "text", nullable: true ),
+                    contact_name = table.Column<string>( "varchar(255)", nullable: true ),
+                    contact_phone = table.Column<string>( "varchar(255)", nullable: true ),
+                    contact_email = table.Column<string>( "varchar(255)", nullable: true ),
+                    suburb_name = table.Column<string>( "varchar(255)", nullable: true ),
+                    suburb_postcode = table.Column<string>( "varchar(4)", nullable: true ),
+                    category_name = table.Column<string>( "varchar(255)", nullable: true ),
+                    job_status = table.Column<string>( "varchar(50)", nullable: true ),
+                    created_at = table.Column<DateTime>( "TIMESTAMP" )
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_jobs_info", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey( "PK_jobs_info", x => x.id ); }
+            );
 
             migrationBuilder.CreateTable(
-                name: "suburbs",
-                columns: table => new
+                "suburbs",
+                table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    post_code = table.Column<string>(type: "varchar(4)", nullable: true)
+                    id = table.Column<int>()
+                        .Annotation( "MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn ),
+                    name = table.Column<string>( "varchar(255)", nullable: true ),
+                    post_code = table.Column<string>( "varchar(4)", nullable: true )
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_suburbs", x => x.id);
-                });
+                constraints: table => { table.PrimaryKey( "PK_suburbs", x => x.id ); }
+            );
 
             migrationBuilder.CreateTable(
-                name: "jobs",
-                columns: table => new
+                "jobs",
+                table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    status = table.Column<string>(type: "varchar(50)", nullable: false),
-                    category_id = table.Column<int>(nullable: false),
-                    suburb_id = table.Column<int>(nullable: false),
-                    contact_name = table.Column<string>(type: "varchar(255)", nullable: true),
-                    contact_phone = table.Column<string>(type: "varchar(255)", nullable: true),
-                    contact_email = table.Column<string>(type: "varchar(255)", nullable: true),
-                    price = table.Column<int>(type: "int(3)", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
-                    reference_id = table.Column<Guid>(nullable: false)
+                    id = table.Column<int>()
+                        .Annotation( "MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn ),
+                    status = table.Column<string>( "varchar(50)" ),
+                    category_id = table.Column<int>(),
+                    suburb_id = table.Column<int>(),
+                    contact_name = table.Column<string>( "varchar(255)", nullable: true ),
+                    contact_phone = table.Column<string>( "varchar(255)", nullable: true ),
+                    contact_email = table.Column<string>( "varchar(255)", nullable: true ),
+                    price = table.Column<int>( "int(3)" ),
+                    description = table.Column<string>( "text", nullable: true ),
+                    created_at =
+                        table.Column<DateTime>( "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP" ),
+                    updated_at =
+                        table.Column<DateTime>( "TIMESTAMP", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP" ),
+                    reference_id = table.Column<Guid>()
                 },
                 constraints: table =>
-                {
-                    table.PrimaryKey("PK_jobs", x => x.id);
-                    table.ForeignKey(
-                        name: "f_k_jobs_categories_category_id",
-                        column: x => x.category_id,
-                        principalTable: "categories",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "f_k_jobs_suburbs_suburb_id",
-                        column: x => x.suburb_id,
-                        principalTable: "suburbs",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                             {
+                                 table.PrimaryKey( "PK_jobs", x => x.id );
+
+                                 table.ForeignKey(
+                                     "f_k_jobs_categories_category_id",
+                                     x => x.category_id,
+                                     "categories",
+                                     "id",
+                                     onDelete: ReferentialAction.Cascade
+                                 );
+
+                                 table.ForeignKey(
+                                     "f_k_jobs_suburbs_suburb_id",
+                                     x => x.suburb_id,
+                                     "suburbs",
+                                     "id",
+                                     onDelete: ReferentialAction.Cascade
+                                 );
+                             }
+            );
 
             migrationBuilder.CreateIndex(
-                name: "idx_categories_parent_category",
-                table: "categories",
-                column: "parent_category_id");
+                "idx_categories_parent_category",
+                "categories",
+                "parent_category_id"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_categories_name_parent_category_id",
-                table: "categories",
-                columns: new[] { "name", "parent_category_id" });
+                "i_x_categories_name_parent_category_id",
+                "categories",
+                new[] { "name", "parent_category_id" }
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_jobs_category_id",
-                table: "jobs",
-                column: "category_id");
+                "i_x_jobs_category_id",
+                "jobs",
+                "category_id"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_jobs_reference_id",
-                table: "jobs",
-                column: "reference_id");
+                "i_x_jobs_reference_id",
+                "jobs",
+                "reference_id"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_jobs_suburb_id",
-                table: "jobs",
-                column: "suburb_id");
+                "i_x_jobs_suburb_id",
+                "jobs",
+                "suburb_id"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_jobs_info_job_status",
-                table: "jobs_info",
-                column: "job_status");
+                "i_x_jobs_info_job_status",
+                "jobs_info",
+                "job_status"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_jobs_info_reference_id",
-                table: "jobs_info",
-                column: "reference_id");
+                "i_x_jobs_info_reference_id",
+                "jobs_info",
+                "reference_id"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "idx_suburbs_postcode",
-                table: "suburbs",
-                column: "post_code");
+                "idx_suburbs_postcode",
+                "suburbs",
+                "post_code"
+            );
 
             migrationBuilder.CreateIndex(
-                name: "i_x_suburbs_name_post_code",
-                table: "suburbs",
-                columns: new[] { "name", "post_code" });
+                "i_x_suburbs_name_post_code",
+                "suburbs",
+                new[] { "name", "post_code" }
+            );
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
+        protected override void Down( MigrationBuilder migrationBuilder )
         {
             migrationBuilder.DropTable(
-                name: "jobs");
+                "jobs"
+            );
 
             migrationBuilder.DropTable(
-                name: "jobs_info");
+                "jobs_info"
+            );
 
             migrationBuilder.DropTable(
-                name: "categories");
+                "categories"
+            );
 
             migrationBuilder.DropTable(
-                name: "suburbs");
+                "suburbs"
+            );
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Leads.Application.AcceptLead;
 using Leads.Application.GetAcceptedLeads;
@@ -11,16 +10,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Leads.Presentation.Api.AcceptedLeads
 {
-    [Route("api/leads/accepted")]
+    [Route( "api/leads/accepted" )]
     [ApiController]
     public class AcceptedLeadsController : ControllerBase
     {
         private readonly ILogger<AcceptedLeadsController> _logger;
         private readonly IMediator _mediator;
 
-        public AcceptedLeadsController(
-            ILogger<AcceptedLeadsController> logger,
-            IMediator mediator)
+        public AcceptedLeadsController( ILogger<AcceptedLeadsController> logger,
+            IMediator mediator
+        )
         {
             _logger = logger;
             _mediator = mediator;
@@ -30,42 +29,41 @@ namespace Leads.Presentation.Api.AcceptedLeads
         public async Task<IActionResult> GetAccepted()
         {
             var query = new GetAcceptedLeadsQuery();
-            var response = await _mediator.Send(query);
+            var response = await _mediator.Send( query );
 
 
             var httpResponse = new GetAccepetedLeadsResponse
             {
                 Data = response
-                    .Select(e => new AcceptedLeadResponse
-                    {
-                        Category = e.CategoryName,
-                        DateCreated = e.CreatedAt,
-                        Description = e.Description,
-                        Id = e.Id.ToString(),
-                        Price = e.Price,
-                        Suburb = $"{e.SuburbName} ${e.SuburbPostcode}",
-                        Contact = new Contact
+                    .Select(
+                        e => new AcceptedLeadResponse
                         {
-                            Email = e.ContactEmail,
-                            Fullname = e.ContactName,
-                            Phone = e.ContactPhone
+                            Category = e.CategoryName,
+                            DateCreated = e.CreatedAt,
+                            Description = e.Description,
+                            Id = e.Id.ToString(),
+                            Price = e.Price,
+                            Suburb = $"{e.SuburbName} ${e.SuburbPostcode}",
+                            Contact = new Contact
+                            {
+                                Email = e.ContactEmail,
+                                Fullname = e.ContactName,
+                                Phone = e.ContactPhone
+                            }
                         }
-                    })
+                    )
             };
 
-            return Ok(httpResponse.ToHal(HttpContext.Request));
+            return Ok( httpResponse.ToHal( HttpContext.Request ) );
         }
 
         [HttpPost]
-        [Route("{id}")]
-        public async Task<IActionResult> AcceptInvitedLead([FromRoute] int id)
+        [Route( "{id}" )]
+        public async Task<IActionResult> AcceptInvitedLead( [FromRoute] int id )
         {
-            var command = new AcceptLeadCommand
-            {
-                JobId = id
-            };
+            var command = new AcceptLeadCommand { JobId = id };
 
-            await _mediator.Send(command);
+            await _mediator.Send( command );
 
             return Ok();
         }

@@ -4,8 +4,6 @@ namespace Leads.Infrastructure.MySqlDatabase.Repositories
 {
     public class SuburbRepository : MySqlDbRepository<Suburb>
     {
-        public SuburbRepository(JobsDbContext dbContext) : base(dbContext)
-        {
-        }
+        public SuburbRepository( JobsDbContext dbContext ) : base( dbContext ) { }
     }
 }

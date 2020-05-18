@@ -14,34 +14,37 @@ namespace Leads.Application.GetAcceptedLeads
         private readonly IJobQueryService _jobQueryService;
         private readonly ILogger<GetAcceptedLeadsQueryHandler> _logger;
 
-        public GetAcceptedLeadsQueryHandler(
-            ILogger<GetAcceptedLeadsQueryHandler> logger,
-            IJobQueryService jobQueryService)
+        public GetAcceptedLeadsQueryHandler( ILogger<GetAcceptedLeadsQueryHandler> logger,
+            IJobQueryService jobQueryService
+        )
         {
             _logger = logger;
             _jobQueryService = jobQueryService;
         }
 
-        public async Task<IEnumerable<GetAcceptedLeadsQueryResponse>> Handle(GetAcceptedLeadsQuery request,
-            CancellationToken cancellationToken)
+        public async Task<IEnumerable<GetAcceptedLeadsQueryResponse>> Handle( GetAcceptedLeadsQuery request,
+            CancellationToken cancellationToken
+        )
         {
             var entities = await _jobQueryService.GetAcceptedAsync();
 
             var results = entities
-                .Select(e => new GetAcceptedLeadsQueryResponse
-                {
-                    Id = e.Id,
-                    Status = e.JobStatus,
-                    CategoryName = e.CategoryName,
-                    SuburbName = e.SuburbName,
-                    SuburbPostcode = e.SuburbPostcode,
-                    ContactName = e.ContactName,
-                    ContactPhone = e.ContactPhone,
-                    ContactEmail = e.ContactEmail,
-                    Price = e.Price,
-                    Description = e.Description,
-                    CreatedAt = e.CreatedAt
-                });
+                .Select(
+                    e => new GetAcceptedLeadsQueryResponse
+                    {
+                        Id = e.Id,
+                        Status = e.JobStatus,
+                        CategoryName = e.CategoryName,
+                        SuburbName = e.SuburbName,
+                        SuburbPostcode = e.SuburbPostcode,
+                        ContactName = e.ContactName,
+                        ContactPhone = e.ContactPhone,
+                        ContactEmail = e.ContactEmail,
+                        Price = e.Price,
+                        Description = e.Description,
+                        CreatedAt = e.CreatedAt
+                    }
+                );
 
             return results;
         }

@@ -7,8 +7,7 @@ namespace Leads.Domain.Services.Seedwork
 {
     public interface IJobQueryService
     {
-        Task InsertJobAsync(
-            int jobId,
+        Task InsertJobAsync( int jobId,
             Guid referenceId,
             decimal price,
             string description,
@@ -19,9 +18,11 @@ namespace Leads.Domain.Services.Seedwork
             string suburbPostcode,
             string categoryName,
             string jobStatus,
-            DateTime createdAt);
+            DateTime createdAt
+        );
+
         Task<IEnumerable<JobInfo>> GetInvitedAsync();
         Task<IEnumerable<JobInfo>> GetAcceptedAsync();
-        Task UpdateStatus(Guid referenceId, string jobStatus);
+        Task UpdateStatus( Guid referenceId, string jobStatus );
     }
 }

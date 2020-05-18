@@ -6,9 +6,9 @@ namespace Leads.Domain.Events
 {
     public class JobStatusUpdatedEvent : IEvent, INotification
     {
-        public JobStatusUpdatedEvent(
-            Guid referenceId,
-            string jobStatus)
+        public JobStatusUpdatedEvent( Guid referenceId,
+            string jobStatus
+        )
         {
             Id = Guid.NewGuid().ToString();
             ReferenceId = referenceId;

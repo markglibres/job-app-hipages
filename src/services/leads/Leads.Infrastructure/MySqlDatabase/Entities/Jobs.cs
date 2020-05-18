@@ -10,57 +10,62 @@ namespace Leads.Infrastructure.MySqlDatabase.Entities
 {
     public class Jobs : IEntityTypeConfiguration<Job>
     {
-        public void Configure(EntityTypeBuilder<Job> builder)
+        public void Configure( EntityTypeBuilder<Job> builder )
         {
-            builder.HasKey(e => e.Id)
-                .HasAnnotation("MySql:ValueGeneratedOnAdd", true);
+            builder.HasKey( e => e.Id )
+                .HasAnnotation( "MySql:ValueGeneratedOnAdd", true );
 
             builder.OwnsOne(
-                    e => e.Contact,
-                    contact =>
-                    {
-                        contact.Property(c => c.Email)
-                            .HasColumnName($"{nameof(Contact)}{nameof(Contact.Email)}".ToSnakCase())
-                            .HasColumnType("varchar(255)");
-                        contact.Property(c => c.Name)
-                            .HasColumnName($"{nameof(Contact)}{nameof(Contact.Name)}".ToSnakCase())
-                            .HasColumnType("varchar(255)");
-                        ;
-                        contact.Property(c => c.Phone)
-                            .HasColumnName($"{nameof(Contact)}{nameof(Contact.Phone)}".ToSnakCase())
-                            .HasColumnType("varchar(255)");
-                        ;
-                    });
+                e => e.Contact,
+                contact =>
+                {
+                    contact.Property( c => c.Email )
+                        .HasColumnName( $"{nameof( Contact )}{nameof( Contact.Email )}".ToSnakCase() )
+                        .HasColumnType( "varchar(255)" );
 
-            builder.Property(e => e.CreatedAt)
-                .HasColumnType("TIMESTAMP")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                    contact.Property( c => c.Name )
+                        .HasColumnName( $"{nameof( Contact )}{nameof( Contact.Name )}".ToSnakCase() )
+                        .HasColumnType( "varchar(255)" );
+
+                    ;
+
+                    contact.Property( c => c.Phone )
+                        .HasColumnName( $"{nameof( Contact )}{nameof( Contact.Phone )}".ToSnakCase() )
+                        .HasColumnType( "varchar(255)" );
+
+                    ;
+                }
+            );
+
+            builder.Property( e => e.CreatedAt )
+                .HasColumnType( "TIMESTAMP" )
+                .HasDefaultValueSql( "CURRENT_TIMESTAMP" )
                 .ValueGeneratedOnAdd();
 
-            builder.Property(e => e.UpdatedAt)
-                .HasColumnType("TIMESTAMP")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+            builder.Property( e => e.UpdatedAt )
+                .HasColumnType( "TIMESTAMP" )
+                .HasDefaultValueSql( "CURRENT_TIMESTAMP" )
                 .ValueGeneratedOnAddOrUpdate();
 
-            builder.Property(e => e.Description)
-                .HasColumnType("text");
+            builder.Property( e => e.Description )
+                .HasColumnType( "text" );
 
-            builder.Property(e => e.Price)
-                .HasColumnType("int(3)");
+            builder.Property( e => e.Price )
+                .HasColumnType( "int(3)" );
 
-            builder.HasOne(e => e.Category)
+            builder.HasOne( e => e.Category )
                 .WithMany();
 
-            builder.HasOne(e => e.Suburb)
+            builder.HasOne( e => e.Suburb )
                 .WithMany();
 
-            builder.Property(e => e.Status)
-                .HasColumnType("varchar(50)")
-                .HasConversion(new EnumToStringConverter<JobStatus>());
+            builder.Property( e => e.Status )
+                .HasColumnType( "varchar(50)" )
+                .HasConversion( new EnumToStringConverter<JobStatus>() );
 
-            builder.HasIndex(e => e.ReferenceId);
+            builder.HasIndex( e => e.ReferenceId );
 
-            builder.Ignore(e => e.Events);
+            builder.Ignore( e => e.Events );
         }
     }
 }

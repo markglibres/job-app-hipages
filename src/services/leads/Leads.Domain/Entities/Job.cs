@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Ardalis.GuardClauses;
-using BizzPo.Core.Domain;
 using Leads.Domain.Constants;
 using Leads.Domain.Entities.Seedwork;
 using Leads.Domain.Events;
@@ -13,6 +11,35 @@ namespace Leads.Domain.Entities
 {
     public class Job : DbEntity
     {
+        [JsonConstructor]
+        private Job() { }
+
+        public Job( decimal price,
+            string description,
+            Contact contact,
+            int suburbId,
+            int categoryId,
+            Guid referenceId
+        )
+        {
+            Guard.Against.ZeroOrNegative( price, nameof( Price ) );
+            Guard.Against.Empty( description, nameof( Description ) );
+            Guard.Against.NullObject( contact, nameof( Contact ) );
+            Guard.Against.ZeroOrNegative( suburbId, nameof( SuburbId ) );
+            Guard.Against.ZeroOrNegative( categoryId, nameof( CategoryId ) );
+
+            Price = price;
+            Description = description;
+            Contact = contact;
+            SuburbId = suburbId;
+            CategoryId = categoryId;
+            ReferenceId = referenceId;
+
+            Status = JobStatus.New;
+
+            Emit( new JobAddedEvent( ReferenceId ) );
+        }
+
         public JobStatus Status { get; private set; }
         public int CategoryId { get; private set; }
         public Category Category { get; private set; }
@@ -25,45 +52,10 @@ namespace Leads.Domain.Entities
         public DateTime UpdatedAt { get; private set; }
         public Guid ReferenceId { get; private set; }
 
-        [JsonConstructor]
-        private Job()
-        {
-            
-        }
-
-        public Job(
-            decimal price, 
-            string description, 
-            Contact contact, 
-            int suburbId, 
-            int categoryId,
-            Guid referenceId)
-        {
-
-            Guard.Against.ZeroOrNegative(price, nameof(Price));
-            Guard.Against.Empty(description, nameof(Description));
-            Guard.Against.NullObject(contact, nameof(Contact));
-            Guard.Against.ZeroOrNegative(suburbId, nameof(SuburbId));
-            Guard.Against.ZeroOrNegative(categoryId, nameof(CategoryId));
-
-            Price = price;
-            Description = description;
-            Contact = contact;
-            SuburbId = suburbId;
-            CategoryId = categoryId;
-            ReferenceId = referenceId;
-
-            Status = JobStatus.Invited;
-
-            Emit(new JobAddedEvent(ReferenceId));
-        }
-
-
-        public void UpdateStatus(JobStatus jobStatus)
+        public void UpdateStatus( JobStatus jobStatus )
         {
             Status = jobStatus;
-            Emit(new JobStatusUpdatedEvent(ReferenceId, Status.ToString()));
+            Emit( new JobStatusUpdatedEvent( ReferenceId, Status.ToString() ) );
         }
-        
     }
 }

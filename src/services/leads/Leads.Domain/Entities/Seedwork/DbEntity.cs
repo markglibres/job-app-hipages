@@ -1,16 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BizzPo.Core.Domain;
-using Newtonsoft.Json;
 
 namespace Leads.Domain.Entities.Seedwork
 {
     public abstract class DbEntity : IDbEntity, IHasEvents
     {
-        protected DbEntity()
-        {
-            Events = new List<IEvent>();
-        }
+        protected DbEntity() => Events = new List<IEvent>();
 
         public int Id { get; private set; }
         public IList<IEvent> Events { get; }
@@ -20,11 +16,14 @@ namespace Leads.Domain.Entities.Seedwork
             Events.Clear();
         }
 
-        protected void Emit(IEvent @event)
+        protected void Emit( IEvent @event )
         {
-            if (Events.Any(e => e.Id == @event.Id)) return;
+            if ( Events.Any( e => e.Id == @event.Id ) )
+            {
+                return;
+            }
 
-            Events.Add(@event);
+            Events.Add( @event );
         }
     }
 }

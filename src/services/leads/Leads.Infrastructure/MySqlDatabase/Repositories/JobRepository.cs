@@ -4,8 +4,6 @@ namespace Leads.Infrastructure.MySqlDatabase.Repositories
 {
     public class JobRepository : MySqlDbRepository<Job>
     {
-        public JobRepository(JobsDbContext dbContext) : base(dbContext)
-        {
-        }
+        public JobRepository( JobsDbContext dbContext ) : base( dbContext ) { }
     }
 }

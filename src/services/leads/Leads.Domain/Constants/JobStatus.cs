@@ -2,7 +2,7 @@
 {
     public enum JobStatus
     {
-        Invited,
+        New,
         Accepted,
         Declined
     }
