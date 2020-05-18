@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Leads.Application.Integration.Seedwork;
+using Leads.Application.Services;
+using Leads.Application.Services.Seedwork;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

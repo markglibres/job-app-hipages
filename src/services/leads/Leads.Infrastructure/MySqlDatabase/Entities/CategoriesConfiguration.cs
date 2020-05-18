@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Leads.Infrastructure.MySqlDatabase.Entities
 {
-    public class Categories : IEntityTypeConfiguration<Category>
+    public class CategoriesConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure( EntityTypeBuilder<Category> builder )
         {

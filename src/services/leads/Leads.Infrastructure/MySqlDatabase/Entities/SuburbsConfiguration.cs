@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Leads.Infrastructure.MySqlDatabase.Entities
 {
-    public class Suburbs : IEntityTypeConfiguration<Suburb>
+    public class SuburbsConfiguration : IEntityTypeConfiguration<Suburb>
     {
         public void Configure( EntityTypeBuilder<Suburb> builder )
         {

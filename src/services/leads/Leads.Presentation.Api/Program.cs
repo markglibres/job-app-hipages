@@ -39,8 +39,12 @@ namespace Leads.Presentation.Api
                     }
 
                     Log.Information( "Migrating database..." );
-                    var context = services.GetRequiredService<JobsDbContext>();
-                    context.Database.Migrate();
+                    var jobsContext = services.GetRequiredService<JobsDbContext>();
+                    var jobsQueryContext = services.GetRequiredService<JobsQueryDbContext>();
+                    var jobsEventsContext = services.GetRequiredService<JobsEventSourcingDbContext>();
+                    jobsContext.Database.Migrate();
+                    jobsQueryContext.Database.Migrate();
+                    jobsEventsContext.Database.Migrate();
 
                     SeedCategory.EnsureSeedData( services );
                     SeedSuburbs.EnsureSeedData( services );

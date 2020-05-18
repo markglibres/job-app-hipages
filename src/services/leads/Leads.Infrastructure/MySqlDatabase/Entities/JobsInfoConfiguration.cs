@@ -1,10 +1,11 @@
-﻿using Leads.Domain.Entities;
+﻿using Leads.Application.Services.JobQuery;
+using Leads.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Leads.Infrastructure.MySqlDatabase.Entities
 {
-    public class JobsInfo : IEntityTypeConfiguration<JobInfo>
+    public class JobsInfoConfiguration : IEntityTypeConfiguration<JobInfo>
     {
         public void Configure( EntityTypeBuilder<JobInfo> builder )
         {

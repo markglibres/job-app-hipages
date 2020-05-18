@@ -77,13 +77,13 @@ namespace Leads.Domain.Services
         public async Task<Job> AcceptJobAsync( int jobId )
         {
             var entity = await GetByIdAsync( jobId );
-            entity.Accept();
-
+            
             foreach ( var discountService in _discountServices )
             {
                 discountService.ApplyDiscount( entity );
             }
 
+            entity.Accept();
             var result = await _repository.SaveAsync( entity );
 
             await _domainEventsService.Publish( entity.Events, CancellationToken.None );

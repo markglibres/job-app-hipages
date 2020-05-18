@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Leads.Application.Services.Seedwork;
 using Leads.Domain.Constants;
-using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
-using Leads.Domain.Services.Seedwork;
 using Microsoft.Extensions.Logging;
 
-namespace Leads.Domain.Services
+namespace Leads.Application.Services.JobQuery
 {
     // Ideally, we should not be using EFcore for queries,
     // but rather a small ORM with custom select statement

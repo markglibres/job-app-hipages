@@ -8,25 +8,22 @@ using Microsoft.Extensions.Logging;
 
 namespace Leads.Application.DomainEvents
 {
-    public class JobAcceptedEventHandler : INotificationHandler<JobAcceptedEvent>
+    public class JobDeclinedEventHandler : INotificationHandler<JobDeclinedEvent>
     {
         private readonly IEventSourceService<Job> _eventSourceService;
-        private readonly ILogger<JobAcceptedEventHandler> _logger;
-        private readonly INotificationService _notificationService;
+        private readonly ILogger<JobDeclinedEventHandler> _logger;
 
-        public JobAcceptedEventHandler( ILogger<JobAcceptedEventHandler> logger,
+        public JobDeclinedEventHandler( ILogger<JobDeclinedEventHandler> logger,
             INotificationService notificationService,
             IEventSourceService<Job> eventSourceService
         )
         {
             _logger = logger;
-            _notificationService = notificationService;
             _eventSourceService = eventSourceService;
         }
 
-        public async Task Handle( JobAcceptedEvent notification, CancellationToken cancellationToken )
+        public async Task Handle(JobDeclinedEvent notification, CancellationToken cancellationToken )
         {
-            await _notificationService.NotifyAcceptedLeads( notification.ReferenceId );
             await _eventSourceService.Add( notification );
         }
     }

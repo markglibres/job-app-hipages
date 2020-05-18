@@ -37,7 +37,17 @@ namespace Leads.Domain.Entities
 
             Status = JobStatus.New;
 
-            Emit( new JobAddedEvent( ReferenceId ) );
+            Emit(
+                new JobCreatedEvent(
+                    ReferenceId,
+                    Price,
+                    Description,
+                    Contact,
+                    SuburbId,
+                    CategoryId,
+                    Status
+                )
+            );
         }
 
         public JobStatus Status { get; private set; }
@@ -56,14 +66,14 @@ namespace Leads.Domain.Entities
         {
             Status = JobStatus.Accepted;
             Emit( new JobAcceptedEvent( ReferenceId ) );
-            Emit(new JobUpdatedEvent(ReferenceId));
+            Emit( new JobUpdatedEvent( ReferenceId, Price, Status ) );
         }
 
         public void Decline()
         {
             Status = JobStatus.Declined;
-            Emit(new JobDeclinedEvent(ReferenceId));
-            Emit(new JobUpdatedEvent(ReferenceId));
+            Emit( new JobDeclinedEvent( ReferenceId ) );
+            Emit( new JobUpdatedEvent( ReferenceId, Price, Status ) );
         }
 
         public void SetPrice( decimal price )

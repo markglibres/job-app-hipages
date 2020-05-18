@@ -1,4 +1,5 @@
 ﻿using Leads.Domain.Entities;
+using Leads.Infrastructure.MySqlDatabase.Entities;
 using Leads.Infrastructure.MySqlDatabase.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +14,11 @@ namespace Leads.Infrastructure.MySqlDatabase
         public DbSet<Category> Categories { get; set; }
         public DbSet<Job> Jobs { get; set; }
 
-        public DbSet<JobInfo> JobsInfo { get; set; }
-
         protected override void OnModelCreating( ModelBuilder modelBuilder )
         {
-            modelBuilder.ApplyConfigurationsFromAssembly( GetType().Assembly );
+            modelBuilder.ApplyConfiguration( new CategoriesConfiguration() );
+            modelBuilder.ApplyConfiguration( new JobsConfiguration() );
+            modelBuilder.ApplyConfiguration( new SuburbsConfiguration() );
             modelBuilder.Model.UseSnakeCase();
             base.OnModelCreating( modelBuilder );
         }

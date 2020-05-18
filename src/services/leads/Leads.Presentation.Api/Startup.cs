@@ -1,6 +1,9 @@
 using BizzPo.Core.Domain;
 using Leads.Application.GetInvitedLeads;
-using Leads.Application.Integration.Seedwork;
+using Leads.Application.Services;
+using Leads.Application.Services.JobEventsSource;
+using Leads.Application.Services.JobQuery;
+using Leads.Application.Services.Seedwork;
 using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
 using Leads.Domain.Services;
@@ -33,6 +36,14 @@ namespace Leads.Presentation.Api
                 options => options
                     .UseMySql( Configuration.GetConnectionString( "DefaultConnection" ) )
             );
+            services.AddDbContext<JobsQueryDbContext>(
+                options => options
+                    .UseMySql(Configuration.GetConnectionString("JobsQuery"))
+            );
+            services.AddDbContext<JobsEventSourcingDbContext>(
+                options => options
+                    .UseMySql(Configuration.GetConnectionString("JobsEvents"))
+            );
 
             services.AddMediatR( typeof( GetInvitedLeadsQuery ).Assembly );
 
@@ -47,6 +58,8 @@ namespace Leads.Presentation.Api
             services.AddTransient<IDiscountService, Above500Discount>();
 
             services.AddTransient<IDomainEventsService, MediatrEventsService>();
+            services.AddTransient<IEventSourceService<Job>, JobEventsSourceService>();
+            services.AddTransient<IDbRepository<JobEvent>, JobEventsRepository>();
 
             services.AddTransient<INotificationService, EmailNotificationService>();
             services.Configure<NotificationConfig>(Configuration.GetSection("Notifications"));

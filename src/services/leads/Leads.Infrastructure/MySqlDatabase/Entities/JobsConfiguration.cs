@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Leads.Infrastructure.MySqlDatabase.Entities
 {
-    public class Jobs : IEntityTypeConfiguration<Job>
+    public class JobsConfiguration : IEntityTypeConfiguration<Job>
     {
         public void Configure( EntityTypeBuilder<Job> builder )
         {

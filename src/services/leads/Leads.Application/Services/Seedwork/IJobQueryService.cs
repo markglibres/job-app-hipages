@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Leads.Domain.Entities;
+using Leads.Application.Services.JobQuery;
 
-namespace Leads.Domain.Services.Seedwork
+namespace Leads.Application.Services.Seedwork
 {
     public interface IJobQueryService
     {

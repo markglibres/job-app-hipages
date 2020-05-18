@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Leads.Application.Integration.Seedwork
+namespace Leads.Application.Services.Seedwork
 {
     public interface INotificationService
     {

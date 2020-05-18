@@ -2,18 +2,17 @@ version: '3.4'
 
 services:
   techchallenge.mysql:
-    image: mysql:5.6
+    image: mysql:8.0.20
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: hipages
-      MYSQL_DATABASE: hipages
     ports:
       - "3306:3306"
     volumes:
         - ./docker/mysql:/docker-entrypoint-initdb.d
     networks:
         - techchallenge.network
-        
+      
   adminer:
     image: adminer
     restart: always
@@ -42,6 +41,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - 'ConnectionStrings__DefaultConnection=Server=techchallenge.mysql;Port=3306;Database=hipages;Uid=root;Pwd=hipages;'
+      - 'ConnectionStrings__JobsQuery=Server=techchallenge.mysql;Port=3306;Database=hipages_query;Uid=root;Pwd=hipages;'
+      - 'ConnectionStrings__JobsEvents=Server=techchallenge.mysql;Port=3306;Database=hipages_events;Uid=root;Pwd=hipages;'
       
   techchallenge.app:
     image: ${DOCKER_REGISTRY-}techchallengeapp
