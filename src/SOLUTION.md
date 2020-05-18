@@ -23,6 +23,7 @@ It demonstrates the following patterns /  architecture:
 * react
 * react-redux
 * redux-saga
+* material-ui
 
 ### Web API
  * REST
