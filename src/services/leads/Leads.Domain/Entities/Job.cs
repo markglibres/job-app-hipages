@@ -52,10 +52,18 @@ namespace Leads.Domain.Entities
         public DateTime UpdatedAt { get; private set; }
         public Guid ReferenceId { get; private set; }
 
-        public void UpdateStatus( JobStatus jobStatus )
+        public void Accept()
         {
-            Status = jobStatus;
-            Emit( new JobUpdatedEvent( ReferenceId ) );
+            Status = JobStatus.Accepted;
+            Emit( new JobAcceptedEvent( ReferenceId ) );
+            Emit(new JobUpdatedEvent(ReferenceId));
+        }
+
+        public void Decline()
+        {
+            Status = JobStatus.Declined;
+            Emit(new JobDeclinedEvent(ReferenceId));
+            Emit(new JobUpdatedEvent(ReferenceId));
         }
 
         public void SetPrice( decimal price )

@@ -26,7 +26,7 @@ namespace Leads.Application.DomainEvents
 
         public async Task Handle( JobAddedEvent notification, CancellationToken cancellationToken )
         {
-            var entity = await _jobService.GetByReferenceId( notification.ReferenceId );
+            var entity = await _jobService.GetByReferenceIdAsync( notification.ReferenceId );
 
             await _jobQueryService.InsertJobAsync(
                 entity.Id,

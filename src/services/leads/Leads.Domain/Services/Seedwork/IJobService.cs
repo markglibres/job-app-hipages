@@ -19,6 +19,7 @@ namespace Leads.Domain.Services
         Task<Job> DeclineJobAsync( int jobId );
         Task<Job> AcceptJobAsync( int jobId );
         Task<bool> IsExistsAsync( Guid referenceId );
-        Task<Job> GetByReferenceId( Guid referenceId );
+        Task<Job> GetByReferenceIdAsync( Guid referenceId );
+        Task<Job> GetByIdAsync( int jobId );
     }
 }

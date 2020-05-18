@@ -1,5 +1,6 @@
 using BizzPo.Core.Domain;
 using Leads.Application.GetInvitedLeads;
+using Leads.Application.Integration.Seedwork;
 using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
 using Leads.Domain.Services;
@@ -8,6 +9,7 @@ using Leads.Domain.Services.Seedwork;
 using Leads.Infrastructure.DomainEvents;
 using Leads.Infrastructure.MySqlDatabase;
 using Leads.Infrastructure.MySqlDatabase.Repositories;
+using Leads.Infrastructure.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +47,9 @@ namespace Leads.Presentation.Api
             services.AddTransient<IDiscountService, Above500Discount>();
 
             services.AddTransient<IDomainEventsService, MediatrEventsService>();
+
+            services.AddTransient<INotificationService, EmailNotificationService>();
+            services.Configure<NotificationConfig>(Configuration.GetSection("Notifications"));
 
             services.AddControllers();
             services.AddHealthChecks();

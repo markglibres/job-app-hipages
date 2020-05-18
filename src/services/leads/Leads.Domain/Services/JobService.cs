@@ -64,7 +64,8 @@ namespace Leads.Domain.Services
 
         public async Task<Job> DeclineJobAsync( int jobId )
         {
-            var entity = await GetAndSetStatusAsync( jobId, JobStatus.Declined );
+            var entity = await GetByIdAsync( jobId );
+            entity.Decline();
 
             var result = await _repository.SaveAsync( entity );
 
@@ -75,7 +76,8 @@ namespace Leads.Domain.Services
 
         public async Task<Job> AcceptJobAsync( int jobId )
         {
-            var entity = await GetAndSetStatusAsync( jobId, JobStatus.Accepted );
+            var entity = await GetByIdAsync( jobId );
+            entity.Accept();
 
             foreach ( var discountService in _discountServices )
             {
@@ -107,7 +109,7 @@ namespace Leads.Domain.Services
             return result;
         }
 
-        public async Task<Job> GetByReferenceId( Guid referenceId )
+        public async Task<Job> GetByReferenceIdAsync( Guid referenceId )
         {
             Guard.Against.Empty( referenceId, "referenceId" );
 
@@ -125,7 +127,7 @@ namespace Leads.Domain.Services
             return result;
         }
 
-        private async Task<Job> GetAndSetStatusAsync( int jobId, JobStatus jobStatus )
+        public async Task<Job> GetByIdAsync( int jobId )
         {
             Guard.Against.ZeroOrNegative( jobId, "jobId" );
 
@@ -135,8 +137,6 @@ namespace Leads.Domain.Services
             {
                 throw new DomainException( $"Cannot find job with id {jobId}" );
             }
-
-            entity.UpdateStatus( jobStatus );
 
             return entity;
         }

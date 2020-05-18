@@ -12,9 +12,9 @@ namespace Leads.Application.DomainEvents
     {
         private readonly IJobQueryService _jobQueryService;
         private readonly IJobService _jobService;
-        private readonly ILogger<JobAddedEventHandler> _logger;
+        private readonly ILogger<JobUpdatedEventHandler> _logger;
 
-        public JobUpdatedEventHandler( ILogger<JobAddedEventHandler> logger,
+        public JobUpdatedEventHandler( ILogger<JobUpdatedEventHandler> logger,
             IJobQueryService jobQueryService,
             IJobService jobService
         )
@@ -24,9 +24,9 @@ namespace Leads.Application.DomainEvents
             _jobService = jobService;
         }
 
-        public async Task Handle( JobUpdatedEvent notification, CancellationToken cancellationToken )
+        public async Task Handle(JobUpdatedEvent notification, CancellationToken cancellationToken )
         {
-            var entity = await _jobService.GetByReferenceId(notification.ReferenceId);
+            var entity = await _jobService.GetByReferenceIdAsync(notification.ReferenceId);
 
             await _jobQueryService.UpdateJobAsync(
                 entity.ReferenceId,
