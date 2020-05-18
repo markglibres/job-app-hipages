@@ -23,6 +23,6 @@ namespace Leads.Domain.Services.Seedwork
 
         Task<IEnumerable<JobInfo>> GetInvitedAsync();
         Task<IEnumerable<JobInfo>> GetAcceptedAsync();
-        Task UpdateStatus( Guid referenceId, string jobStatus );
+        Task UpdateJobAsync(Guid referenceId, decimal price, string jobStatus);
     }
 }

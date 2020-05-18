@@ -55,7 +55,12 @@ namespace Leads.Domain.Entities
         public void UpdateStatus( JobStatus jobStatus )
         {
             Status = jobStatus;
-            Emit( new JobStatusUpdatedEvent( ReferenceId, Status.ToString() ) );
+            Emit( new JobUpdatedEvent( ReferenceId ) );
+        }
+
+        public void SetPrice( decimal price )
+        {
+            Price = price;
         }
     }
 }

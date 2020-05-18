@@ -62,9 +62,10 @@ namespace Leads.Domain.Services
 
         public async Task<IEnumerable<JobInfo>> GetAcceptedAsync() => await GetByStatusAsync( JobStatus.Accepted );
 
-        public async Task UpdateStatus( Guid referenceId, string jobStatus )
+        public async Task UpdateJobAsync( Guid referenceId, decimal price, string jobStatus)
         {
             var entity = await _repository.GetSingleAsync( e => e.ReferenceId.Equals( referenceId ) );
+            entity.SetPrice( price );
             entity.SetStatus( jobStatus );
 
             await _repository.SaveAsync( entity );

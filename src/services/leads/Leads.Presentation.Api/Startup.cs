@@ -3,6 +3,7 @@ using Leads.Application.GetInvitedLeads;
 using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
 using Leads.Domain.Services;
+using Leads.Domain.Services.Discounts;
 using Leads.Domain.Services.Seedwork;
 using Leads.Infrastructure.DomainEvents;
 using Leads.Infrastructure.MySqlDatabase;
@@ -41,6 +42,7 @@ namespace Leads.Presentation.Api
             services.AddTransient<IJobService, JobService>();
             services.AddTransient<IJobQueryService, JobQueryService>();
             services.AddTransient<IDbRepository<JobInfo>, JobInfoRepository>();
+            services.AddTransient<IDiscountService, Above500Discount>();
 
             services.AddTransient<IDomainEventsService, MediatrEventsService>();
 

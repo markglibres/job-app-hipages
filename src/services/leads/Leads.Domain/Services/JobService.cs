@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Leads.Domain.Constants;
 using Leads.Domain.Entities;
 using Leads.Domain.Extensions;
 using Leads.Domain.Repositories;
+using Leads.Domain.Services.Seedwork;
 using Leads.Domain.ValueObjects;
 using Microsoft.Extensions.Logging;
 
@@ -15,18 +17,21 @@ namespace Leads.Domain.Services
 {
     public class JobService : IJobService
     {
+        private readonly IEnumerable<IDiscountService> _discountServices;
         private readonly IDomainEventsService _domainEventsService;
         private readonly ILogger<JobService> _logger;
         private readonly IDbRepository<Job> _repository;
 
         public JobService( ILogger<JobService> logger,
             IDbRepository<Job> repository,
-            IDomainEventsService domainEventsService
+            IDomainEventsService domainEventsService,
+            IEnumerable<IDiscountService> discountServices
         )
         {
             _logger = logger;
             _repository = repository;
             _domainEventsService = domainEventsService;
+            _discountServices = discountServices;
         }
 
         public async Task<Job> CreateAsync( string contactName,
@@ -57,9 +62,32 @@ namespace Leads.Domain.Services
             return result;
         }
 
-        public async Task<Job> DeclineJobAsync( int jobId ) => await SetStatusAsync( jobId, JobStatus.Declined );
+        public async Task<Job> DeclineJobAsync( int jobId )
+        {
+            var entity = await GetAndSetStatusAsync( jobId, JobStatus.Declined );
 
-        public async Task<Job> AcceptJobAsync( int jobId ) => await SetStatusAsync( jobId, JobStatus.Accepted );
+            var result = await _repository.SaveAsync( entity );
+
+            await _domainEventsService.Publish( entity.Events, CancellationToken.None );
+
+            return result;
+        }
+
+        public async Task<Job> AcceptJobAsync( int jobId )
+        {
+            var entity = await GetAndSetStatusAsync( jobId, JobStatus.Accepted );
+
+            foreach ( var discountService in _discountServices )
+            {
+                discountService.ApplyDiscount( entity );
+            }
+
+            var result = await _repository.SaveAsync( entity );
+
+            await _domainEventsService.Publish( entity.Events, CancellationToken.None );
+
+            return result;
+        }
 
         public async Task<bool> IsExistsAsync( Guid referenceId )
         {
@@ -97,7 +125,7 @@ namespace Leads.Domain.Services
             return result;
         }
 
-        private async Task<Job> SetStatusAsync( int jobId, JobStatus jobStatus )
+        private async Task<Job> GetAndSetStatusAsync( int jobId, JobStatus jobStatus )
         {
             Guard.Against.ZeroOrNegative( jobId, "jobId" );
 
@@ -109,11 +137,8 @@ namespace Leads.Domain.Services
             }
 
             entity.UpdateStatus( jobStatus );
-            var result = await _repository.SaveAsync( entity );
 
-            await _domainEventsService.Publish( entity.Events, CancellationToken.None );
-
-            return result;
+            return entity;
         }
     }
 }

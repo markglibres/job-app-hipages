@@ -55,5 +55,11 @@ namespace Leads.Domain.Entities
         {
             JobStatus = jobStatus;
         }
+
+        public void SetPrice( decimal price )
+        {
+            Price = price;
+        }
+
     }
 }

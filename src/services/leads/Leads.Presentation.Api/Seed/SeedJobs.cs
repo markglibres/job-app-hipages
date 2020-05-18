@@ -40,7 +40,7 @@ namespace Leads.Presentation.Api.Seed
         private static IEnumerable<Job> SeedData() => new List<Job>
         {
             new Job(
-                20,
+                520,
                 "Integer aliquam pulvinar odio et convallis. Integer id tristique ex. "
                 + "Aenean scelerisque massa vel est sollicitudin vulputate. Suspendisse quis ex eu "
                 + "ligula elementum suscipit nec a est. Aliquam a gravida diam. Donec placerat magna "
@@ -52,7 +52,7 @@ namespace Leads.Presentation.Api.Seed
                 Guid.Parse( "f054da6c-9821-11ea-bb37-0242ac130002" )
             ),
             new Job(
-                30,
+                499,
                 "Praesent elit dui, blandit eget nisl sed, ornare pharetra urna. "
                 + "In cursus auctor tellus. Quisque ligula metus, viverra nec nibh ut, sagittis luctus "
                 + "tellus. Nulla egestas nibh ut diam vehicula, ut auctor lectus pharetra. "
