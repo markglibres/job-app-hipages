@@ -1,5 +1,5 @@
 ﻿using BizzPo.Core.Infrastructure.Repository.EntityFramework;
-using Leads.Application.Services.JobEventsSource;
+using Leads.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

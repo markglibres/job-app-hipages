@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Leads.Application.Services;
-using Leads.Application.Services.Seedwork;
+using Leads.Domain.Services.Seedwork;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Leads.Infrastructure.Notifications
+namespace Leads.Infrastructure.Services.Notifications
 {
     public class EmailNotificationService : INotificationService
     {

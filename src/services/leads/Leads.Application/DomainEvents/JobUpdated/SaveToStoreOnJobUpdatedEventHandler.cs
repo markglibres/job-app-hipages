@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Leads.Application.Services.Seedwork;
 using Leads.Domain.Entities;
 using Leads.Domain.Events;
+using Leads.Domain.Services.Seedwork;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

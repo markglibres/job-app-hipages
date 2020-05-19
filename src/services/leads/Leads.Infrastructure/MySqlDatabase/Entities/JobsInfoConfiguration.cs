@@ -1,5 +1,4 @@
-﻿using Leads.Application.Services.JobQuery;
-using Leads.Domain.Entities;
+﻿using Leads.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

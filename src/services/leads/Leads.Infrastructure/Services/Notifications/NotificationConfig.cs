@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Leads.Infrastructure.Notifications
+namespace Leads.Infrastructure.Services.Notifications
 {
     public class NotificationConfig
     {

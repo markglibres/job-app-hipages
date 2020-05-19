@@ -1,18 +1,14 @@
 using BizzPo.Core.Domain;
 using Leads.Application.GetInvitedLeads;
-using Leads.Application.Services;
-using Leads.Application.Services.JobEventsSource;
-using Leads.Application.Services.JobQuery;
-using Leads.Application.Services.Seedwork;
 using Leads.Domain.Entities;
 using Leads.Domain.Repositories;
 using Leads.Domain.Services;
 using Leads.Domain.Services.Discounts;
 using Leads.Domain.Services.Seedwork;
-using Leads.Infrastructure.DomainEvents;
 using Leads.Infrastructure.MySqlDatabase;
 using Leads.Infrastructure.MySqlDatabase.Repositories;
-using Leads.Infrastructure.Notifications;
+using Leads.Infrastructure.Services;
+using Leads.Infrastructure.Services.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,13 +32,15 @@ namespace Leads.Presentation.Api
                 options => options
                     .UseMySql( Configuration.GetConnectionString( "DefaultConnection" ) )
             );
+
             services.AddDbContext<JobsQueryDbContext>(
                 options => options
-                    .UseMySql(Configuration.GetConnectionString("JobsQuery"))
+                    .UseMySql( Configuration.GetConnectionString( "JobsQuery" ) )
             );
+
             services.AddDbContext<JobsEventSourcingDbContext>(
                 options => options
-                    .UseMySql(Configuration.GetConnectionString("JobsEvents"))
+                    .UseMySql( Configuration.GetConnectionString( "JobsEvents" ) )
             );
 
             services.AddMediatR( typeof( GetInvitedLeadsQuery ).Assembly );
@@ -62,7 +60,7 @@ namespace Leads.Presentation.Api
             services.AddTransient<IDbRepository<JobEvent>, JobEventsRepository>();
 
             services.AddTransient<INotificationService, EmailNotificationService>();
-            services.Configure<NotificationConfig>(Configuration.GetSection("Notifications"));
+            services.Configure<NotificationConfig>( Configuration.GetSection( "Notifications" ) );
 
             services.AddControllers();
             services.AddHealthChecks();

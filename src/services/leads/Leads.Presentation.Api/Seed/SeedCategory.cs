@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Leads.Domain.Entities;
 using Leads.Domain.Services;
+using Leads.Domain.Services.Seedwork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Leads.Presentation.Api.Seed

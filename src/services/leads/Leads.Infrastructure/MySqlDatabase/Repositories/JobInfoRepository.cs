@@ -1,5 +1,4 @@
-﻿using Leads.Application.Services.JobQuery;
-using Leads.Domain.Entities;
+﻿using Leads.Domain.Entities;
 
 namespace Leads.Infrastructure.MySqlDatabase.Repositories
 {

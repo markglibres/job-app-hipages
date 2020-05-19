@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Leads.Domain.Entities;
 
-namespace Leads.Domain.Services
+namespace Leads.Domain.Services.Seedwork
 {
     public interface ICategoryService
     {

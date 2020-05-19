@@ -1,4 +1,4 @@
-﻿using Leads.Application.Services.JobEventsSource;
+﻿using Leads.Domain.Entities;
 using Leads.Infrastructure.MySqlDatabase.Entities;
 using Leads.Infrastructure.MySqlDatabase.Extensions;
 using Microsoft.EntityFrameworkCore;

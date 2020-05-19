@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Leads.Application.Services.Seedwork;
+﻿using System.Threading.Tasks;
 using Leads.Domain.Entities;
 using Leads.Domain.Events;
 using Leads.Domain.Repositories;
+using Leads.Domain.Services.Seedwork;
 using Microsoft.Extensions.Logging;
 
-namespace Leads.Application.Services.JobEventsSource
+namespace Leads.Infrastructure.Services
 {
     public class JobEventsSourceService : IEventSourceService<Job>
     {

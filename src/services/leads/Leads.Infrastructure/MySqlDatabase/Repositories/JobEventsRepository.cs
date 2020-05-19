@@ -1,4 +1,4 @@
-﻿using Leads.Application.Services.JobEventsSource;
+﻿using Leads.Domain.Entities;
 
 namespace Leads.Infrastructure.MySqlDatabase.Repositories
 {

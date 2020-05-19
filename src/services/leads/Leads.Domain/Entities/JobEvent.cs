@@ -2,7 +2,7 @@
 using Leads.Domain.Entities.Seedwork;
 using Newtonsoft.Json;
 
-namespace Leads.Application.Services.JobEventsSource
+namespace Leads.Domain.Entities
 {
     public class JobEvent : IDbEntity
     {

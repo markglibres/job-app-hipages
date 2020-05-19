@@ -5,6 +5,7 @@ using Ardalis.GuardClauses;
 using Leads.Domain.Entities;
 using Leads.Domain.Extensions;
 using Leads.Domain.Repositories;
+using Leads.Domain.Services.Seedwork;
 using Microsoft.Extensions.Logging;
 
 namespace Leads.Domain.Services

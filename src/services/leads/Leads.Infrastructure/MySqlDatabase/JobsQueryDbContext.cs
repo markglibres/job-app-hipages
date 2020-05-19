@@ -1,5 +1,4 @@
-﻿using Leads.Application.Services.JobQuery;
-using Leads.Domain.Entities;
+﻿using Leads.Domain.Entities;
 using Leads.Infrastructure.MySqlDatabase.Entities;
 using Leads.Infrastructure.MySqlDatabase.Extensions;
 using Microsoft.EntityFrameworkCore;

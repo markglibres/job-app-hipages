@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Leads.Infrastructure.DomainEvents
+namespace Leads.Infrastructure.Services
 {
     //do your own implementation of IDomainEventsService
     //or you can inherit / use from
